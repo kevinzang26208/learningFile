@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    /*text-decoration: none;*/
+    color: rgb(51,51,51);
+}
+/*右上角头部*/
+.header{
+    height: 30px;
+}
+ul{
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    list-style: none;
+}
+/*ul::after{*/
+    /*content: '';*/
+    /*display: block;*/
+    /*clear: both;*/
+/*}*/
+/*li右浮动的时，需要清除里后的浮动*/
+li{
+    float: left;
+    /*float: right;*/
+    margin-right: 15px;
+}
+/*中部搜索框*/
+.logo{
+    display: block;
+    height: 200px;
+    width: 350px;
+    background-image: url("image/BAIDU_qingming_logo.gif");
+    background-size: 350px;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+.main{
+    height: 300px;
+    width: 700px;
+    /*border: 1px solid black;*/
+    margin: 200px auto;
+}
+form{
+    width: 604px;
+    margin: 0 auto;
+
+}
+.search-text{
+    height: 32px;
+    width: 500px;
+    vertical-align: top
+    /*input默认是是 inline-block 并默认与基线对齐，也就是baseline，
+    加上 vertical-align: top;就行 或者 改成 display: block;*/
+}
+input[type="submit"]{
+    height: 36px;
+    width: 100px;
+    color: #FFFFFF;
+    background-color: rgb(51,133,255);
+    border:none
+}
+/*底部声明*/
+.bottom{
+    /*border: 1px solid black;*/
+    width: 600px;
+    margin: 250px auto 0;
+    font-size: 12px;
+    color: #999;
+}
+.bottom a{
+    color: #999999;
+    margin-right: 10px;
+}
+.bottom img
+{
+    display: block;
+    margin: 0 auto;
+}
+.bottom .QR-code{
+    text-align: center;
+    margin: 5px 0 17px;
+}
+.bottom p{
+    text-align: center;
+    margin: 4px 0 10px;
+}
+.bottom span{
+    margin: 10px;
+}

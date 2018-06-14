@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*一个字符串[a-z]组成，请找出该字符串第一个只出现一次的字母*/
+        function firstString(Arr){
+            if(typeof Arr !== 'string'){
+                return Arr;
+            }
+            var tempArr = [];
+            var tempObject = {};
+            var len = Arr.length;
+            var sptArr = Arr.split('');
+            // 将数组中的每一项都置入对象内
+            for (var i = 0 ;i < len;i++){
+                // var item = tempObject[sptArr[i]];
+                if (tempObject[sptArr[i]] === undefined){
+                    tempObject[sptArr[i]] = 0;
+                }
+                tempObject[sptArr[i]]++
+            }
+            // 判断对象每一项的值是否是1
+            console.log(tempObject);
+            for (var prop in tempObject) {
+                if(tempObject[ prop] === 1){
+                    return prop;
+                }
+
+            }
+        }
+        // var Arr = 'dfdsafdsafsadfwqfsdafqvwe';
+        // var result = firstString(Arr);
+
+    </script>
+</body>
+</html>

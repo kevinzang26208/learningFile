@@ -1,0 +1,39 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+html,body,.wrapper{
+    height: 100%;
+    font-size: 0;
+}
+li{
+    display: inline-block;
+    width: 33.1%;
+    overflow: hidden;
+    background: #eeeeee;
+    text-align: center;
+    border: 1px solid #938e8c;
+}
+li img{
+    width: 100%;
+    vertical-align: middle;
+}
+.bigimage-layer{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #444444;
+    height: 100%;
+    width: 100%;
+
+}
+.bigimage-layer img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+
+}

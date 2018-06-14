@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+    </ul>
+    <script>
+        // 测试事件，配合立即执行函数
+        var li = document.getElementsByTagName("li");
+        for(var i = 0;i < li.length;i++){
+            (function (i) {
+                li[i].addEventListener('click',function(){
+                    console.log(i);
+                },false)
+            }(i));
+        }
+        /*深度克隆测试*/
+        var obj1 = {
+            name : 'kevin',
+            age : 24,
+            card : ['visa','master'],
+            wife :{
+                name : 'hhh',
+                son : {
+                    name : 'aaa',
+                    age : 10
+                }
+            }
+        };
+        var obj2 = {
+
+        };
+
+
+        /*遍历对象 for (var prop in obj)
+        * 1.判断是不是原始值 typeof（） object
+        * 2.判断是数组还是对象 instanceof tostring constructor
+        * 3.建立相应的数组和对象
+        * 4.递归*/
+        function deepClone(origin,target) {
+            var targetprop = target || {},
+                toStr = Object.prototype.toString,
+                arrStr = '[object Array]';
+            for(var prop in origin){
+                if(origin.hasOwnProperty(prop)){
+                    if(typeof origin[prop] === 'object' && origin[prop] !== null){
+                        if(toStr.call(origin[prop]) === arrStr){
+                            target[prop] = [];
+                        }else{
+                            target[prop] = {};
+                        }
+                        deepClone(origin[prop],target[prop]);
+                    }else{
+                        targetprop[prop] = origin[prop];
+                    }
+                }
+            }
+            return target;
+        }
+        /*封装type方法*/
+        function type(varData){
+            if (typeof varData === "object"){
+                return Object.prototype.toString.call(varData);
+            }else{
+                return typeof varData;
+            }
+        }
+        console.log(type([]));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

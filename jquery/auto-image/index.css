@@ -1,0 +1,110 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: #FFFFFF;
+}
+html,body,.wrapper,.slider-box,.slider{
+    height: 100%;
+}
+.wrapper{
+    overflow: hidden;
+}
+.slider-box .slider{
+    box-sizing: border-box;
+    padding: 10%;
+    background-size: cover;
+    background-position: center ;
+    background-repeat: no-repeat;
+}
+.slider-box .slider:first-child{
+    background-image: url("./images/background-1.jpg");
+}
+.slider-box .slider:nth-child(2){
+    background-image: url("./images/background-2.jpg");
+    display: none;
+}
+.slider-box .slider:last-child{
+     background-image: url("./images/background-3.jpg");
+    display: none;
+}
+
+.img img{
+    width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.img{
+    width: 0;
+    float: right;
+}
+.slider-box .slider:first-child .img{
+    width: 35%;
+}
+.title{
+    width: 35%;
+    float: left;
+}
+.title h1{
+    font-size: 62px;
+}
+.title p{
+    font-size: 22px;
+}
+.btn{
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    box-sizing: border-box;
+    height: 50px;
+    width: 100%;
+    padding: 0 30px;
+}
+.btn .btn-left,
+.btn .btn-right{
+    height: 50px;
+    width: 35px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+.btn .btn-left{
+    background-image: url("./images/left-btn.png");
+    float: left;
+
+}
+.btn .btn-right{
+    background-image: url("./images/right-btn.png");
+    float: right;
+}
+.wrapper .slider-index{
+    height: 15px;
+    width: 100%;
+    position: absolute;
+    bottom: 80px;
+    text-align: center;
+}
+.wrapper .slider-index ul{
+    display: inline-block;
+    height: 100%;
+}
+.wrapper .slider-index ul li{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 30px;
+    background: #938e8c;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.wrapper .slider-index ul .active{
+    background: #FFFFFF;
+    opacity: 1;
+}
+/*.btn-left:hover,*/
+/*.btn-right:hover{*/
+    /*background-color: #5e5e5e;*/
+    /*opacity: 0.5;*/
+/*}*/

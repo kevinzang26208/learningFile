@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .buffer{
+            width: 100px;
+            height: 100px;
+            background: #ff4400;
+            margin-bottom: 50px;
+        }
+        div:first-child.buffer{
+            margin-top: 40px;
+        }
+        .box4{
+            position: absolute;
+            top: 490px;
+            left: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="buffer box1"></div>
+    <div class="buffer box2"></div>
+    <div class="buffer box3"></div>
+    <div class="buffer box4"></div>
+    <script>
+        var box1 = document.getElementsByClassName('buffer')[0];
+        var box2 = document.getElementsByClassName('buffer')[1];
+        var box3 = document.getElementsByClassName('buffer')[2];
+        var box4 = document.getElementsByClassName('buffer')[3];
+        box1.addEventListener('mouseenter',function () {
+           statMotion(this,'width',400);
+        });
+        box1.addEventListener('mouseleave',function () {
+            statMotion(this,'width',100);
+        });
+        box2.addEventListener('mouseenter',function () {
+            statMotion(this,'width',400);
+            statMotion(this,'height',400);
+        });
+        box2.addEventListener('mouseleave',function () {
+            statMotion(this,'width',100);
+            statMotion(this,'height',100);
+        });
+        box3.addEventListener('mouseenter',function () {
+            statMotion(this,'opacity',0.2);
+        });
+        box3.addEventListener('mouseleave',function () {
+            statMotion(this,'opacity',1);
+        });
+
+        var key = true,
+            keyTwo = true;
+        function moveBox4() { /*解决第四个滑块，左右运动*/
+            if (key) {
+                box4.a =function () {/*滑块向400px位置运动，初始阶段函数，第一次运动*/
+                    statMotion(this, 'left', 400);
+                    key = false;
+                    moveBox4();
+                };
+                box4.b = function () {/*滑块向0px位置运动*/
+                    statMotion(this, 'left', 0);
+                    keyTwo = false;
+                    moveBox4();
+                };
+                box4.c = function () {/*滑块向400px位置运动，第二次开始的后续运动*/
+                    statMotion(this, 'left', 400);
+                    keyTwo = true;
+                    moveBox4();
+                };
+                box4.addEventListener('mouseenter',box4.a,false);
+            } else {
+                if (keyTwo) {
+                    box4.addEventListener('mouseleave', function () {
+                        box4.removeEventListener('mouseenter',box4.a);/*移除第一次运动，即obj.a函数*/
+                        box4.removeEventListener('mouseenter',box4.c);/*移除第二次开始的后续运动，即obj.c函数*/
+                        box4.addEventListener('mouseenter',box4.b,false);
+                    });
+                } else {
+                    box4.addEventListener('mouseleave', function () {
+                        box4.removeEventListener('mouseenter',box4.b);
+                        box4.addEventListener('mouseenter', box4.c);
+                    });
+                }
+            }
+        }
+        moveBox4();
+
+        /*获取DOM元素属性，返回结果为字符串，需要parsefloat/parseInt转为number*/
+        function getComputeAttr(obj,attr){
+            if (obj.currentStyle){
+                return obj.currentStyle[attr];
+            } else {
+                return window.getComputedStyle(obj,null)[attr];
+            }
+        }
+
+        /*三参数的缓冲运动，运动的DOM元素，怎么运动，运动去哪里*/
+        function statMotion(obj,attr,target) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                console.log(obj.timer);
+                var cur = parseFloat(getComputeAttr(obj, attr)),
+                    temp = (target - cur) / 10,
+                    speed;
+                if (attr === 'opacity') {
+                    speed = temp * 1000;
+                } else {
+                    speed = temp;
+                }
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if (target === cur) {
+                    clearInterval(obj.timer);
+                } else {
+                    if (attr === 'opacity') {
+                        obj.style[attr] = cur + speed / 1000;
+                    } else {
+                        obj.style[attr] = cur + speed + 'px';
+                    }
+                }
+
+            }, 50)
+        }
+    </script>
+</body>
+</html>

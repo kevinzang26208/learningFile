@@ -1,0 +1,204 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+:root,body{
+    height: 100%;
+}
+/*外部wrapper，item-box定位*/
+.wrapper{
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item-box{
+    width: 80%;
+    height: 80%;
+    border-radius: 20px;
+}
+.item-box ul{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+.item-box li{
+    width: 16%;
+    height: 100%;
+    background: #5e5e5e;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.item{
+    height: 100%;
+    position: relative;
+}
+/*内部li背景图片*/
+.item-box li .bg{
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    opacity: 0.7;
+
+}
+.item-box li:first-child .bg{
+    background-image: url("./images/1.jpg");
+}
+.item-box li:nth-of-type(2) .bg{
+    background-image: url("./images/2.jpg");
+}
+.item-box li:nth-of-type(3) .bg{
+    background-image: url("./images/3.jpg");
+}
+.item-box li:nth-of-type(4) .bg{
+    background-image: url("./images/4.jpg");
+}
+.item-box li:nth-of-type(5) .bg{
+    background-image: url("./images/5.jpg");
+}
+.item-box li:last-child .bg{
+    background-image: url("./images/6.jpg");
+}
+/*图片中心部位文字*/
+li .item .description{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 22px;
+    color: #FFFFFF;
+    transform: translate(-50%,-50%);
+}
+
+.item:hover .description{
+    font-size: 30px;
+    transition: font-size 0.2s linear;
+}
+.item:hover .bg{
+    opacity: 1;
+    transition: opacity 0.2s linear
+}
+/*初始化的item运动*/
+.wrapper .item-box ul li .init{
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%);
+}
+.item-box li:nth-of-type(1) .item{
+    transform: translateY(0%);
+    transition: transform 0.3s ease ;
+}
+.item-box li:nth-of-type(2) .item{
+    transform: translateY(0%);
+    transition: transform 0.3s ease 0.3s;
+}
+.item-box li:nth-of-type(3) .item{
+    transform: translateY(0%);
+    transition: transform 0.3s ease 0.6s;
+}
+.item-box li:nth-of-type(4) .item{
+    transform: translateY(0%);
+    transition: transform 0.3s ease 0.9s;
+}
+.item-box li:nth-of-type(5) .item{
+    transform: translateY(0%);
+    transition: transform 0.3s ease 1.2s;
+}
+.item-box li:nth-of-type(6) .item{
+    transform: translateY(0%);
+    transition: transform 0.3s ease 1.5s;
+}
+/*active图片变大，其他图片缩小，同时调整active图片的description文字font-size为0*/
+.wrapper-active .item-box ul li.active{
+    width: 100%;
+    transition: height 0.5s ease,width 0.5s ease 0.5s;
+    cursor: auto;
+}
+.wrapper-active .item-box ul li.active .description{
+    font-size: 0;
+    transition:font-size 0.1s ease;
+}
+.wrapper-active .item-box ul li:not(.active){
+    width: 0;
+    height: 0;
+    transition: height 0.5s ease,width 0.5s ease 0.5s;
+}
+.wrapper .item-box ul li{
+    /*关闭时的动画过渡*/
+    transition: width 0.5s ease,height 0.5s ease 0.5s;
+}
+/*解决关于active时title部分的显示动画，以及布局*/
+.wrapper-active .item-box ul li.active .title{
+    position: absolute;
+    top: 30px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 50px;
+    font-size: 35px;
+    white-space: nowrap;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 1;
+}
+.item .title{
+    opacity: 0;
+    transition: height 0.4s ease 0.4s,width 0.4s ease 0.4s,opacity 0.4s ease 0.4s;
+}
+/*处理close摁钮部分*/
+.item .close{
+    height: 30px;
+    width: 30px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.item .close::before{
+    content: '';
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transform: translateY(12px) rotateZ(45deg);
+    transform-origin: 42% center;
+}
+.item .close::after{
+    content: '';
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transform: translateY(12px) rotateZ(-45deg);
+    transform-origin: 42% center;
+}
+.wrapper-active .item-box ul li.active .close{
+    transform: rotate(720deg);
+    transition: transform 1s ease 0.6s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

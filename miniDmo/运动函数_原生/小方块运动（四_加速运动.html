@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .item{
+            width: 100px;
+            height: 100px;
+            background: #F44336;
+            position: absolute;
+            left: 1px;
+            top: 10px;
+            cursor: pointer;
+        }
+        .wall{
+            width: 5px;
+            height: 100px;
+            background: #3f89ec;
+            position: absolute;
+            left: 600px;
+            top: 10px;
+        }
+        ul{
+            width: 732px;
+            border: 1px solid black;
+            margin: 250px auto 0;
+            position: relative;
+        }
+        ul::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        li{
+            width: 120px;
+            height: 60px;
+            float: left;
+            border: 1px solid #75b86b;
+            font-size: 20px;
+            line-height: 60px;
+            text-align: center;
+        }
+        .last-item{
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #7FFFD4;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1 item"></div>
+    <div class="wall"></div>
+    <ul>
+        <li>html</li>
+        <li>css</li>
+        <li>javascript</li>
+        <li>vue</li>
+        <li>react</li>
+        <li>angular</li>
+        <li class="last-item"></li>
+    </ul>
+    <script>
+        var box1 = document.getElementsByClassName('box1')[0];
+        box1.addEventListener('click',function () {
+            speedUpOne(this,600);
+        });
+        var li = document.getElementsByTagName('li');
+        var liLast = document.getElementsByClassName('last-item')[0];
+        var len = li.length-1;
+
+        for (var i =0;i < len;i++) {
+            li[i].addEventListener('mouseenter',function () {
+                speedUpOne(liLast,this.offsetLeft);
+            });
+        }
+
+        function speedUpOne(obj,target) {
+            var speed = 0,
+                a;
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                a = (target - obj.offsetLeft)/8   ;
+                speed = speed +a;
+                speed = speed*0.86;
+                if ((Math.abs(target - obj.offsetLeft)) < 1){
+                    clearInterval(obj.timer);
+                    obj.style.left = target + 'px';
+                } else {
+                    obj.style.left = obj.offsetLeft + speed +'px';
+                }
+          },20)
+        }
+    </script>
+</body>
+</html>

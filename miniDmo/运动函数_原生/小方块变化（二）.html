@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div.buffer{
+            width: 100px;
+            height: 100px;
+            background: #ff4400;
+            margin-bottom: 50px;
+        }
+        div:first-child.buffer{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buffer"></div>
+    <div class="buffer"></div>
+    <div class="buffer"></div>
+    <div class="buffer"></div>
+    <script>
+        var divButter =document.getElementsByClassName('buffer');
+        for (var i = 0;i < divButter.length;i++){
+            divButter[i].addEventListener('mouseenter',function () {
+                starMove(this,400);
+            });
+            divButter[i].addEventListener('mouseleave',function () {
+                starMove(this,100);
+            })
+        }
+
+        function getComputeAttr(obj,attr){
+            if (obj.currentStyle){
+                return obj.currentStyle[attr];
+            } else{
+                return window.getComputedStyle(obj,false)[attr];
+            }
+        }
+
+        /*双参数缓冲运动*/
+        function starMove(obj,target) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {/*每一次的timer都绑定在相应的dom元素上*/
+                var speed = (target - obj.offsetWidth)/7;
+                speed = speed > 0 ? Math.ceil(speed) :Math.floor(speed);/*解决最后几像素不到位的问题*/
+                if (obj.offsetWidth === target){
+                    clearInterval(obj.timer);
+                    /*清除timer，并不会让timer变为0，timer相当于定时器的id清除timer，
+                    就相当于清除这个id对应的定时器，同时timer内的后文会继续执行，直到这个函数结束，
+                    只要定时器启动工作，那么定时器就会多线程工作，定时器函数的后文代码会正常执行，
+                    并不会等待定时器执行完毕后再执行定时器的后文代码*/
+                } else{
+                    obj.style.width = obj.offsetWidth + speed + 'px';
+                }
+            },30);
+        }
+
+        /*三参数的缓冲运动，运动的DOM元素，怎么运动，运动去哪里*/
+        function statMotion(obj,attr,target) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                var cur = parseFloat(getComputeAttr(obj,attr)),
+                    temp = (target - cur)/10,
+                    speed;
+                console.log(temp);
+                if (attr === 'opacity') {
+                    speed = temp*1000;
+                } else {
+                    speed = temp;
+                }
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if (target === parseFloat(getComputeAttr(obj,attr))) {
+                    clearInterval(obj.timer);
+                } else {
+                    if (attr === 'opacity'){
+                        obj.style[attr] = cur + speed/1000;
+                    } else {
+                        obj.style[attr] = cur + speed + 'px';
+                    }
+                }
+
+            },50)
+        }
+    </script>
+</body>
+</html>

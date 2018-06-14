@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .one{
+            width: 100px;
+            height: 100px;
+            background: #f40;
+            position: absolute;
+            left: 0;
+            top: 80px;
+        }
+        .two{
+            width: 100px;
+            height: 100px;
+            background: #c7f7ba;
+            position: absolute;
+            left: 800px;
+            top: 80px;
+        }
+        .wall{
+            width: 20px;
+            height: 100px;
+            background: deepskyblue;
+            position: absolute;
+            left: 400px;
+            top: 80px;
+            opacity: 0.7;
+        }
+        button.run{
+            border: none;
+            width: 100px;
+            height: 45px;
+            background: #3f89ec;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+        button.runBlock{
+            border: none;
+            width: 100px;
+            height: 45px;
+            background: #f01414;
+            color: #FFFFFF;
+            cursor: pointer;
+            margin-left: 100px;
+        }
+        .wrapper{
+            width: 400px;
+            height: 100px;
+            position: absolute;
+            left: -400px;
+            top: 250px;
+            background: bisque;
+            line-height: 100px;
+            color: mediumseagreen;
+            font-size: 30px;
+            text-align: center;
+        }
+        .show{
+            width: 50px;
+            height: 100px;
+            position: absolute;
+            right: -50px;
+            top: 0;
+            background: #c7f7ba;
+            opacity: 0.9;
+        }
+        .opacity{
+            width: 100px;
+            height: 100px;
+            background: darkgreen;
+            position: absolute;
+            left: 0;
+            top: 420px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <button class="run">run</button>
+    <button class="runBlock">runBlock</button>
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="wall"></div>
+    <div class="wrapper">
+        老婆，老婆，我爱你
+        <div class="show"></div>
+    </div>
+    <div class="opacity"></div>
+    <script>
+        var btn = document.getElementsByTagName('button')[0];
+        var btnTwo = document.getElementsByTagName('button')[1];
+        var one = document.getElementsByClassName('one')[0];
+        var two = document.getElementsByClassName('two')[0];
+        var opacity = document.getElementsByClassName('opacity')[0];
+        var key = true;
+        btn.addEventListener('click',function (evt) {
+            changOpacity(opacity,0.1);
+            bufferMotion(opacity,one);
+        });
+        btnTwo.addEventListener('click',function (evt) {
+            bufferMotion(opacity,one);
+        });
+        var slideWrapper = document.getElementsByClassName('wrapper')[0];
+        slideWrapper.addEventListener('mouseenter',function (evt) {
+            bufferMotionSlide(this,0)
+        });
+        slideWrapper.addEventListener('mouseleave',function (evt) {
+           bufferMotionSlide(this,-400)
+        });
+
+        /*获取DOM元素属性，返回结果为字符串，需要parsefloat/parseInt转为number*/
+        function getComputeAttr(obj,attr){
+            if (obj.currentStyle){
+                return obj.currentStyle[attr];
+            } else{
+                return window.getComputedStyle(obj,false)[attr];
+            }
+        }
+        /*物体横向匀速运动*/
+        function startMove1(obj) {
+            var timer = setInterval(function () {
+                var offsetX = obj.offsetLeft;
+                obj.style.left = offsetX + 10 +'px';
+            },100)
+        }
+        // startMove1(one);
+
+        /*物体横向运动到500px停止*/
+        function startMove500px(obj) {
+            var timer = setInterval(function () {
+                var offsetLeft = obj.offsetLeft;
+                if (offsetLeft >= 500){
+                    clearInterval(timer);
+                }else{
+                    obj.style.left = offsetLeft + 1 + 'px';
+                }
+                console.log(offsetLeft);
+            },5)
+        }
+        // startMove500px(one);
+
+        /*物体横向运动到500px停止，且每次步进的大小非整数倍,解决末端到达点不精准的问题*/
+        function startMove500px7px(obj) {
+            if (key) {
+                var speed = 7;
+                if (obj.offsetLeft > 400){
+                    speed = -7;
+                }
+                var timer = setInterval(function () {
+                    var offsetLeft = obj.offsetLeft;
+                    if (Math.abs(400 - offsetLeft) < Math.abs(speed)){
+                        obj.style.left = 400 + 'px';
+                        clearInterval(timer);
+                        key = true;
+                    }else{
+                        obj.style.left = offsetLeft + speed + 'px';
+                        key = false;
+                    }
+                    console.log(obj.offsetLeft);
+                },50)
+            }
+
+        }
+        // startMove500px7px(one);
+        
+        /*缓冲运动*/
+        function bufferMotion(obj) {
+            var timer = null,
+                speed;
+            // clearInterval(timer);
+            timer = setInterval(function () {
+                speed = (400 - obj.offsetLeft)/9;
+                speed = speed >0 ? Math.ceil(speed) : Math.floor(speed);
+                /*--->299.123px会自动变成299px，speed最后会计算成小于1的小数，
+                speed+299px = 299.123px--->299px,永远形成死循环*/
+                if (400 - obj.offsetLeft === 0){
+                    clearInterval(timer);
+                } else {
+                    obj.style.left = obj.offsetLeft + speed + 'px';
+                }
+                console.log(obj.offsetLeft,speed,Math.abs(400 - obj.offsetLeft));
+            },50)
+        }
+        /*缓冲运动，带有参数为缓冲到目标点的函数*/
+        function bufferMotionSlide(obj,target) {
+            var speed;
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                speed = (target - obj.offsetLeft)/9;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                /*--->299.123px会自动变成299px，speed最后会计算成小于1的小数，
+                speed+299px = 299.123px--->299px,永远形成死循环*/
+                if (obj.offsetLeft === target){
+                    clearInterval(obj.timer);
+                } else {
+                    obj.style.left = obj.offsetLeft + speed + 'px';
+                }
+                console.log(obj.offsetLeft,Math.floor(speed),Math.abs(target - obj.offsetLeft));
+            },50)
+        }
+        /*div，opacity透明度缓冲变化*/
+        function changOpacity(obj,target) {
+            var timer = null,
+                speed;
+            clearInterval(timer);
+            timer = setInterval(
+                function () {
+                    var currentOpacity = parseFloat(getComputeAttr(obj,'opacity'));
+                    speed = (target - currentOpacity)/20*1000;
+                    speed =speed > 0 ? Math.ceil(speed) :Math.floor(speed);
+                    obj.style.opacity = currentOpacity + speed/1000;
+                    console.log(currentOpacity,speed)
+                }
+            ,50)
+        }
+    </script>
+</body>
+</html>

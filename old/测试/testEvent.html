@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#main{
+				width: 200px;
+				height: 200px;
+				background: #FF0000;
+			}
+            /*关于图片水平与垂直对齐的问题*/
+            .main2{
+                width: 200px;
+                height: 200px;
+                line-height: 200px;
+                border:solid 1px black;
+                text-align: center;
+            }
+            .main2>img{
+                vertical-align: middle;
+            }
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			
+		</div>
+        <div class="main2">
+            <img src="img/icon-1.jpg" alt="#">
+        </div>
+		<script>
+			var timeStart = Date.now();
+//            对onmouseover,onmouseleave等测试
+			function alert1(){
+				alert("test");
+			}
+			document.getElementById("main").onmouseover = alert1;
+
+//            浅克隆与深克隆测试
+//            浅克隆
+			var obj1 = {};
+			function clone(origin,target) {
+				var targetProp = target || {};
+				for(var prop in origin){
+                    targetProp[prop] = origin[prop];
+                }
+            }
+            var ori = {
+			    name : 'David',
+                age : 22,
+                sex : 'female'
+            };
+            clone(ori,obj1);
+//            深克隆
+            var obj2 = {};
+            function deepClone(origin,target) {
+                var targetProp = target || {};
+                for( var prop in origin){
+                    if (typeof origin[prop] !== 'object'){
+                        targetProp[prop] = origin[prop];
+                    }else{
+                        targetProp[prop] = {};
+                        deepClone(targetProp[prop],origin[prop]);
+                        console.log('1')
+                    }
+                }
+            }
+            var ori2 = {
+            name : 'David',
+            age : 22,
+            shape : {
+                height :180,
+                width :200
+            },
+            sex : 'female'
+            };
+            deepClone(ori2,obj2);
+            var timeEnd = Date.now();
+            var timeSecond = timeEnd-timeStart;
+
+//            测试时间Date
+			var time = new Date();
+			var time1 = Date.UTC(2017,10,11,);
+			var time2 = Date.parse('February 11,2017');
+			var time3 = new Date(+new Date);
+			var timeTwo = new Date(time1);
+			console.log(Object.prototype);
+
+		</script>
+	</body>
+</html>

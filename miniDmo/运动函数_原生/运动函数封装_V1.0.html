@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .item{
+            width: 100px;
+            height: 100px;
+            background: #F44336;
+            position: absolute;
+            cursor: pointer;
+        }
+        .box1{
+            left: 0;
+            top: 30px;
+
+        }
+        .box2{
+            left: 0;
+            top: 430px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1 item"></div>
+    <div class="box2 item"></div>
+
+    <script>
+        var box1 = document.getElementsByClassName('box1')[0];
+        var box2 = document.getElementsByClassName('box2')[0];
+        var targetOne = {
+            width : 500,
+            height : 500,
+            opacity : 0.5,
+            left : 300,
+            top : 300
+
+        };
+        box1.addEventListener('click',function () {
+            startMove(this,targetOne,function () {
+                startMove(box2,targetOne)
+            });
+        });
+
+        /*获取DOM元素属性，返回结果为字符串，需要parsefloat/parseInt转为number*/
+        function getComputeAttr(obj,attr) {
+            if (obj.currentStyle){
+                return obj.currentStyle[attr];
+            } else {
+                return window.getComputedStyle(obj,null)[attr];
+            }
+        }
+        /*多值，链式缓冲运动函数，做缓冲运动，
+        * 参数objTarget为object类型，该值为运动函数对应的运动目标，
+        * obj为运动元素，callback为运动结束后继续执行的函数*/
+        function startMove(obj,objTarget,callBack) {
+            clearInterval(obj.timer);
+            var cur, speed;
+            obj.timer = setInterval(function () {
+                var iStop = true;
+                for (var attr in objTarget) {/*循环所有attr属性*/
+                    cur = parseFloat(getComputeAttr(obj, attr));
+                    /*算出不断的缩小的应该变化值，即（目标值-当前值）/缩小倍数*/
+                    var curTemp = (objTarget[attr] - cur) / 8;
+                    if (attr === 'opacity') {
+                        /*对循环attr的属性为opacity时，对处理后的curTemp放大，
+                        * 然后向上或向下取整，再缩小，然后传入obj.style[attr]*/
+                        speed = curTemp * 700;
+                    } else {
+                        speed = curTemp;
+                    }
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+                    if (attr === 'opacity') {
+                        obj.style[attr] = cur + speed / 700;
+                    } else {
+                        obj.style[attr] = cur + speed + 'px';
+                    }
+                    /*判定所有的attr属性值是否都到达目标点，
+                    * 当所有都到达目标点时均不执行if语句内容，即所有的判定均为false*/
+                    if (!(Math.abs(objTarget[attr] - parseFloat(getComputeAttr(obj, attr))) < 1)) {
+                        iStop = false;
+                    }
+                }
+                if (iStop) {
+                    clearInterval(obj.timer);
+                    typeof callBack === 'function' ? callBack() : '';
+                }
+            }, 35)
+        }
+
+    </script>
+</body>
+</html>

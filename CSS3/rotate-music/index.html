@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.wrapper{
+			position: absolute;
+			left: 50%;
+			top: 15%;
+			transform: translate(-50%);
+		}
+		.item{
+			width: 200px;
+			height: 200px;
+			border: 150px solid #000000;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			border-radius: 50%;
+			background-image: url("1.jpg");
+			background-size: cover;
+			animation: move 5s linear 500ms infinite forwards paused;
+		}
+		.pin{
+			position: absolute;
+			top: -55px;
+			left: 50%;
+			transform: translate(-50%) rotate(-90deg);
+			transform-origin: top center;
+			transition: all 500ms ease;
+
+			z-index: 1;
+			height: 200px;
+			width: 8px;
+			background-color: #cccccc;
+			border-bottom-left-radius: 4px 35px;
+			border-bottom-right-radius: 4px 35px;
+		}
+		.pin-move{
+			transform: rotate(-40deg);
+		}
+		@keyframes move {
+			/*0%{*/
+				/*transform: rotateZ(0deg);*/
+			/*}*/
+			100%{
+				transform: rotate(360deg);
+			}
+		}
+		button{
+			height: 50px;
+			width: 100px;
+			border: none;
+			background-color: #75b86b;
+		}
+	</style>
+</head>
+<body>
+	<button>开关</button>
+	<div class="wrapper">
+		<div class="pin "></div>
+		<div class="item">
+		</div>
+	</div>
+	<script>
+		var pin = document.getElementsByClassName('pin')[0];
+		var musicRecode = document.getElementsByClassName('item')[0];
+		var btn =document.getElementsByTagName('button')[0],
+			flag = false;
+		btn.onclick = function () {
+			if (flag){
+				flag = false;
+				musicRecode.style.animationPlayState = 'paused';
+				pin.classList.toggle('pin-move');
+			} else {
+				flag = true;
+				musicRecode.style.animationPlayState = 'running';
+				pin.classList.toggle('pin-move');
+			}
+		}
+
+
+
+
+
+	</script>
+</body>
+</html>

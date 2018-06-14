@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .box{
+            background: #ff0000;
+            height: 40px;
+
+            display: inline-block;
+            margin-right: 20px;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            padding: 0 10px;
+        }
+        #textIn{
+            width: 300px;
+            height: 60px;
+        }
+        #found{
+            background-color: #fff;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <form>
+        <label for="textIn"></label>
+        <textarea id="textIn" placeholder="请输入字符并用不同符号分隔"></textarea>
+        <button id="leftin" type="button">左侧入</button>
+        <button id="rightin" type="button">右侧入</button>&nbsp;&nbsp;
+        <button id="leftout" type="button">左侧出</button>
+        <button id="rightout" type="button">右侧出</button><br />
+        <label for="textSearch"></label>
+        <input id="textSearch" type="text">
+        <button id="search" type="button">搜索</button>
+    </form>
+</div>
+<script type="text/javascript">
+
+
+    function addBox (addvalue) {
+        var inValue = document.getElementById('textIn').value,
+        cacheArr =[]
+        ;
+        if (inValue === '') {
+            alert('该处不能为空,请输入数字。');
+            return;
+        }
+        var words = inValue.replace(/[^0-9a-zA-Z]/g,' ');
+        var arr = words.split(' ');
+        console.log(arr);
+        var main = document.getElementById('main');
+        for(var i = 0;i < arr.length;i++){
+            var box1 = document.createElement('p');
+            var text = document.createTextNode(arr[i]);
+            box1.appendChild(text);
+            box1.setAttribute('class','box');
+            cacheArr.push(box1);
+
+            }
+        for(var j =0;j < cacheArr.length;j++){
+            if (addvalue === 'left'){
+                if (main.children.length < 2){
+                    main.appendChild(cacheArr[j]);
+                }else {
+                    main.insertBefore(cacheArr[j],main.getElementsByTagName('p')[j]);
+                }
+            }else{
+                main.appendChild(cacheArr[j])
+            }
+            clickBox();
+        }
+    }
+
+    function minusBox(minusvalue) {
+        if(document.getElementsByTagName('p').length > 0){
+            if(minusvalue === 'left'){
+                var firstelement = document.getElementsByTagName('p')[0];
+                var leftoutvalue = document.getElementById('main').removeChild(firstelement);
+                var outmessage = '弹出字符块为：' + leftoutvalue.innerHTML;
+                alert(outmessage);
+            }else{
+                var number = document.getElementsByTagName('p').length-1;
+                var lastelement = document.getElementsByTagName('p')[number];
+                var rightoutvalue = document.getElementById('main').removeChild(lastelement);
+                var outmessage1 = '弹出字符块为：' + rightoutvalue.innerHTML;
+                alert(outmessage1);
+            }
+        }else{
+            alert('当前页面没有字符块');
+        }
+        clickBox();
+    }
+    function clickBox () {
+        var elementsbox = document.getElementsByTagName('p');
+        for(var i = 0;i<elementsbox.length;i++) {
+            elementsbox[i].onclick = function () {
+                var outvalue = document.getElementById('main').removeChild(this);
+                var outmessage = '弹出字符块为：' + outvalue.innerText;
+                alert(outmessage);
+            }
+        }
+    }
+    function search () {
+        var box = document.getElementsByTagName('p');
+        var searchValue = document.getElementById('textSearch').value;
+
+        for(var i = 0;i < box.length;i++){
+            var keyword = box[i].innerHTML;
+            console.log(keyword.indexOf(searchValue))
+            if(keyword.indexOf(searchValue) > -1){
+                box[i].innerHTML = keyword.replace(searchValue,'<span id = "found">' + searchValue + '</span>');
+            }
+        }
+        
+    }
+    var leftIn = document.getElementById('leftin');
+    var rightIn = document.getElementById('rightin');
+    var leftOut = document.getElementById('leftout');
+    var rightOut = document.getElementById('rightout');
+    var searchBtn = document.getElementById('search');
+    leftIn.onclick = function () {
+        addBox('left');
+    };
+    rightIn.onclick = function () {
+        addBox('right');
+    };
+    leftOut.onclick = function () {
+        minusBox('left');
+    };
+    rightOut.onclick = function () {
+        minusBox('right');
+    };
+    searchBtn.onclick = search;
+</script>
+
+</body>
+</html>

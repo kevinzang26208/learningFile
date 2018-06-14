@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		canvas{
+			border: 1px solid #6C6C6C;
+			background-size: 500px;
+			background-repeat: no-repeat;
+			background-position: center;
+			display: block;
+			margin: 0 auto 20px;
+		}
+		button {
+			width: 180px;
+			height: 70px;
+			line-height: 30px;
+			font-size: 32px;
+			border: none;
+			background-color: #3f89ec;
+			color: #ffffff;
+			box-shadow: 2px 2px 2px #aaaaaa;
+			display: block;
+			margin: 0 auto;
+		}
+		button:active{
+			box-shadow: none;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="500" height="500"></canvas>
+	<button>再来一次</button>
+	<script>
+		function init() {
+			var oNum = Math.random();
+			var oCanvas = document.getElementsByTagName('canvas')[0];
+			var ctx = oCanvas.getContext('2d');
+			var cWidth = oCanvas.width,
+				cHeight = oCanvas.height;
+
+			if (oNum <= 0.2){
+				oCanvas.style.backgroundImage = 'url(./images/一等奖.jpg)';
+			} else if (oNum > 0.2 && oNum <= 0.5){
+				oCanvas.style.backgroundImage = 'url(./images/二等奖.jpg)';
+			} else {
+				oCanvas.style.backgroundImage = 'url(./images/三等奖.jpg)';
+			}
+
+			ctx.fillStyle = '#cccccc';
+			ctx.fillRect(0,0,500,500);
+			ctx.lineCap = 'round';/*解决断点的问题所在，并且可以让线段前后两端有半圆状*/
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.lineWidth = '60';
+
+			var cOffsetX = oCanvas.offsetLeft,
+				cOffsetY = oCanvas.offsetTop;
+			var lastX,lastY,nowX,nowY;
+
+			oCanvas.addEventListener('mousedown',downClick);
+
+			function downClick(e) {
+				lastX = e.clientX - cOffsetX;
+				lastY = e.clientY - cOffsetY;
+				oCanvas.addEventListener('mousemove',moveClick);
+				document.addEventListener('mouseup',deleteFun)
+			}
+			function moveClick(e) {
+				nowX = e.clientX - cOffsetX;
+				nowY = e.clientY - cOffsetY;
+				ctx.beginPath();
+				ctx.moveTo(lastX,lastY);
+				ctx.lineTo(nowX,nowY);
+				ctx.stroke();
+				lastX = nowX;/*更新位置信息，可以让短线每次移动都是新的开始，避免扇形*/
+				lastY = nowY;
+				cleatRect();
+			}
+			function deleteFun() {
+				oCanvas.removeEventListener('mousemove',moveClick);
+				oCanvas.removeEventListener('mouseup',deleteFun);
+			}
+			/*计算，当清除面积达到一定百分比的时候就可以全部清除*/
+			function cleatRect() {
+				var cDate = ctx.getImageData(0,0,500,500);
+				var tempNum = 0;
+				for (var i = 3,len = cDate.data.length;i < len;i += 4){
+					if (cDate.data[i] === 0){
+						tempNum++;
+					}
+					if (tempNum > cWidth*cHeight*0.6 ){
+						ctx.clearRect(0,0,500,500)
+					}
+				}
+			}
+			/*重新为btn绑定事件*/
+			var btn = document.getElementsByTagName('button')[0];
+			btn.onclick = clickBtn;
+		}
+
+		function clickBtn(){
+			document.body.innerHTML = '<canvas width="500" height="500"></canvas><button>再来一次</button>';
+			init()
+		}
+
+		init();
+	</script>
+</body>
+</html>

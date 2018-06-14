@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.wrapper{
+			width: 400px;
+			height: 400px;
+			border: 1px solid #000000;
+			text-align: center;
+			/*font-size: 30px;*/
+		}
+
+		input{
+			/*input 默认line-height为normal，也就是没有line-height，也并且不会继承line-height
+			当处于父元素height为30px，自身height为20px，默认是baseline，对齐但由于上部分空余过小，
+			所以导致与vertical-align:top效果相等,即顶到头。，vertical-align必须设置在自身上才生效，
+			span等标签会继承父元素的line-height，所以设置vertical-align无效，需要重新设置自身的line-height属性*/
+			margin: 5px;
+			width: 20px;
+			height: 20px;
+		}
+
+		.display div{
+			line-height: 370px;
+			display: none;
+		}
+		.display div:first-child{
+			background-color: #f01414;
+		}
+		.display div:nth-of-type(2){
+			background-color: #75b86b;
+		}
+		.display div:last-child{
+			background-color: #3f89ec;
+		}
+		input:first-child:checked~.display div:first-child{
+			display: block;
+		}
+		input:nth-child(2):checked~.display div:nth-child(2){
+			display: block;
+		}
+		input:last-of-type:checked~.display div:last-child{
+			 display: block;
+		 }
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<input type="radio" name="choose" checked>
+		<input type="radio" name="choose">
+		<input type="radio" name="choose">
+		<div class="display">
+			<div>a</div>
+			<div>b</div>
+			<div>c</div>
+		</div>
+	</div>
+</body>
+</html>

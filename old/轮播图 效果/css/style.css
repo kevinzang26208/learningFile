@@ -1,0 +1,133 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.main{
+	width: 1200px;
+	height: 460px;
+	margin: 30px auto;
+	overflow: hidden;
+	position: relative;
+}
+.list{
+	width: 1200px;
+	height: 460px;
+	overflow: hidden;
+	position: relative;
+	
+}
+.list-slide{
+	width: 1200px;
+	height: 460px;
+	position: absolute;
+	display: none;
+}
+.slide-active{
+	display: block;
+}
+.slideOne{
+	background-image: url(../img/bg1.jpg);
+}
+.slideTwo{
+	background-image: url(../img/bg2.jpg);
+}.slideThree{
+	background-image: url(../img/bg3.jpg);
+}
+.button{
+	width: 40px;
+	height: 80px;
+	background-image: url(../img/arrow.png) ;
+	background-repeat: no-repeat;
+	background-position: center center; 
+	position: absolute;
+	left: 246px;
+	top: 50%;
+	margin-top: -40px;
+}
+.right{
+	right: 0;
+	left: auto;
+}
+.left{
+	transform: rotate(180deg);
+}
+.button:hover{
+	background-color: #333;
+	opacity: 0.4;
+}
+.cir{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	/*width: 24px;
+	height: 24px;*/
+	
+}
+.cir span{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background-color: rgba(7, 17, 27, 0.4);
+	margin-left: 8px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 2px rgba(255,255,255,0.8) inset;
+}
+.cir .cir-active{
+	background-color: rgba(255,255,255,0.8);
+	box-shadow: 0 0 0 2px rgba(7, 17, 27, 0.4) inset;
+}
+/*菜单部分*/
+.menu{
+	height: 454px;
+	width: 246px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	background: rgba(7, 17, 27, 0.3);
+	z-index: 1;
+	padding: 6px 0 0 0;
+}
+.menuBox{
+	height: 64px;
+	width:198px;
+	padding: 0 24px;
+}
+.menuBox a{
+	display: block;
+	padding: 0 8px;
+	color: rgba(255,255,255,1);
+	line-height: 64px;
+	text-decoration: none;
+	border-bottom: rgba(255,255,255,0.5) solid 1px;
+}
+.slideBox{
+	position: absolute;
+    z-index: 1;
+    left:245px;
+    width: 652px;
+}
+.slideSubBox{
+	display: none;
+    background: url("../img/fe.png");
+    height: 458px;
+    width: 652px;
+	border:1px solid #d9dde1;
+}
+.slideSubBox dt{
+    display: block;
+    height: 70px;
+    /*background-color: #ffcc00;*/
+    line-height:70px;
+    color: #ff0000;
+    padding-left: 30px;
+    font-weight: bold;
+}
+.slideSubBox dd{
+    height: 48px;
+    padding-left: 30px;
+    color: #5e5e5e;
+}
+.slideSubBox span{
+    font-weight: bold;
+    color: #000000;
+}

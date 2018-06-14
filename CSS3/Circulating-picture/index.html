@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.wrapper{
+			position: relative;
+			width: 1000px;
+			height: 600px;
+			border: 1px solid #75b86b;
+			transform-style: preserve-3d;
+			perspective: 600px;
+			margin: 100px auto;
+		}
+		.temp-box{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 300px;
+			height: 169px;
+			margin-top: -120px;
+			margin-left: -125px;
+			font-size: 0;
+			transform-style: preserve-3d;
+			transform:  rotateX(-15deg) rotateY(30deg);
+			animation: move 18s linear infinite;
+		}
+		.temp-box div{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 300px;
+			transform: translateZ(120px);
+
+		}
+		.wrapper img{
+			width: 100%;
+		}
+		.wrapper .item1{
+			transform: rotateY(0deg) translateZ(280px);
+		}
+		.wrapper .item2{
+			transform: rotateY(-300deg) translateZ(280px);
+		}
+		.wrapper .item3{
+			transform: rotateY(-240deg) translateZ(280px);
+		}
+		.wrapper .item4{
+			transform: rotateY(-180deg) translateZ(280px);
+		}
+		.wrapper .item5{
+			transform: rotateY(-120deg) translateZ(280px);
+		}
+		.wrapper .item6{
+			transform: rotateY(-60deg) translateZ(280px);
+		}
+		@keyframes move {
+			0%{
+				transform:  rotateX(-13deg) rotateY(360deg);
+			}
+			100%{
+				transform:  rotateX(-13deg) rotateY(0deg)
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="temp-box">
+			<div class="item1"><img src="./images/1.jpg" alt=""></div>
+			<div class="item2"><img src="./images/2.jpg" alt=""></div>
+			<div class="item3"><img src="./images/3.jpg" alt=""></div>
+			<div class="item4"><img src="./images/4.jpg" alt=""></div>
+			<div class="item5"><img src="./images/5.jpg" alt=""></div>
+			<div class="item6"><img src="./images/6.jpg" alt=""></div>
+		</div>
+	</div>
+</body>
+</html>

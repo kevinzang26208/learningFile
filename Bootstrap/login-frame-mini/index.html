@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="./src/bootstrap-3.3.7-dist/css/bootstrap.css">
+</head>
+<body>
+	<button type="button" class="btn btn-default btn-lg cancelValue" data-toggle="modal" data-target="#myForm">注册</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">注册</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="exampleInputEmail">Email address</label>
+							<input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword">Password</label>
+							<input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default cancelValue" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">注册</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="./src/jquery-3.3.1.js"></script>
+	<script src="./src/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+	<script>
+		var regRuleEmail =/\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/;
+		var regRulePassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+		var oStatus = {
+			email: false,
+			password: false
+		};
+		$('#exampleInputEmail').on('blur',function () {
+			oStatus.email = regRuleEmail.test($(this).val());
+			console.log(regRuleEmail.test($(this).val()));
+			if (oStatus.email){
+				$('#myForm .modal-body .form-group').eq(0).removeClass('has-error').addClass('has-success');
+			} else {
+				$('#myForm .modal-body .form-group').eq(0).removeClass('has-success').addClass('has-error');
+			}
+		});
+		$('#exampleInputPassword').on('blur',function () {
+			oStatus.password = regRulePassword.test($(this).val());
+			if(oStatus.password){
+				$('#myForm .modal-body .form-group').eq(1).removeClass('has-error').addClass('has-success');
+			} else {
+				$('#myForm .modal-body .form-group').eq(1).removeClass('has-success').addClass('has-error');
+			}
+		});
+		$('#myForm .modal-footer button:eq(1)').on('click',function () {
+			if (oStatus.email&&oStatus.password){
+				var $btn = $(this).button('loading');
+
+				setTimeout(function () {
+					$btn.button('reset')
+				},2000)
+			}
+		});
+		$('.cancelValue').on('click',function () {
+			$('#myForm').find($('input')).val('');
+			$('#myForm .form-group').removeClass('has-success has-error');
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        div.wrapper{
+            width: 640px;
+            height: 360px;
+            margin: 100px auto 0;
+            /*border: 1px solid black;*/
+            overflow: hidden;
+            position: relative;
+
+        }
+        ul.slideImg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4480px;
+            height: 360px;
+        }
+        .slideImg li{
+            float: left;
+        }
+        li img {
+            width: 640px;
+        }
+        .btn{
+            height: 60px;
+            width: 30px;
+            background: gray;
+            opacity: 0.35;
+            position: absolute;
+            top: 50%;
+            text-align: center;
+            font-size: 30px;
+            line-height: 60px;
+            margin-top: -30px;
+            cursor: pointer;
+
+        }
+        div.wrapper:hover .btn{
+            opacity: 0.7;
+        }
+        .btn-left{
+            left: 0;
+        }
+        .btn-right{
+            right: 0;
+        }
+        .sliderIndex{
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+        .sliderIndex span{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #5e5e5e;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .active{
+            background: #ededec;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <ul class="slideImg">
+            <li><img src="./img/demo-1.jpg" alt=""></li>
+            <li><img src="./img/demo-2.jpg" alt=""></li>
+            <li><img src="./img/demo-3.png" alt=""></li>
+            <li><img src="./img/demo-4.png" alt=""></li>
+            <li><img src="./img/demo-5.png" alt=""></li>
+            <li><img src="./img/demo-6.png" alt=""></li>
+            <li><img src="./img/demo-1.jpg" alt=""></li>
+        </ul>
+        <div class="btn btn-left">&lt;</div>
+        <div class="btn btn-right">&gt;</div>
+        <div class="sliderIndex">
+            <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <script src="../../../jquery-3.3.1.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

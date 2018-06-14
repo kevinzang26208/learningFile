@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .item{
+            width: 100px;
+            height: 100px;
+            background: #F44336;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1 item"></div>
+    <script>
+        var box1 = document.getElementsByClassName('box1')[0];
+
+        /*拖动滑块拉动，并判断onmousemove事件间的left和top差，差值即为speedX和speedY*/
+        function boxPull() {
+            box1.onmousedown =function (e) {
+                clearInterval(this.timer);
+                var event = e || window.event;
+                var mouseDistLeft = event.clientX - this.offsetLeft;
+                var mouseDistTop = event.clientY - this.offsetTop;
+                var lastLeft = this.offsetLeft;
+                var lastTop = this.offsetTop;
+                var that = this;
+                var speedX = 0;
+                var speedY = 0;
+                document.onmousemove = function (ev) {
+                    var event = ev || window.event;
+                    var newLeft = event.clientX - mouseDistLeft;
+                    var newTop = event.clientY - mouseDistTop;
+                    speedX = newLeft - lastLeft;
+                    speedY = newTop - lastTop;
+                    lastLeft = newLeft;
+                    lastTop = newTop;
+                    that.style.left = newLeft + 'px';
+                    that.style.top = newTop + 'px';
+                };
+                document.onmouseup = function () {
+                  document.onmousemove = null;
+                  document.onmouseup = null;
+                  startMove(that,speedX,speedY)
+                }
+            }
+        }
+        boxPull();
+
+        /*给予speedX与speedY后，物体做向下做加速度为g的加速运动，向上做加速度减小的减速到运动，
+        * 并在每次speed发生变化时对speed做0.9系数的减小，以模拟物理场的摩檫力，控制物体多次碰壁后停止，
+        * 当物体碰壁时speed取反，物体在上下运动时不需要“摩檫力”也可以停止，
+        * 但是横向运动必须需要这个系数为0.9的摩檫力，否则物体无法横向停止，*/
+        function startMove(obj,speedX,speedY) {
+            clearInterval(obj.timer);
+            // var speedX = 10,
+            //     speedY = 0;
+            var g = 8;
+            obj.timer = setInterval(function () {
+                speedY += g;
+                var newLeft = obj.offsetLeft + speedX;
+                var newTop = obj.offsetTop + speedY;
+                if (newTop >= document.documentElement.clientHeight - obj.offsetHeight){
+                    speedY *= -1;
+                    speedX *= 0.9;
+                    speedY *= 0.9;
+                    newTop = document.documentElement.clientHeight - obj.offsetHeight;
+                }
+                if (newLeft >= document.documentElement.clientWidth - obj.offsetWidth){
+                    speedX *= -1;
+                    speedX *= 0.9;
+                    speedY *= 0.9;
+                    newLeft = document.documentElement.clientWidth - obj.offsetWidth;
+                }
+                if (newTop < 0){
+                    speedY *= -1;
+                    speedX *= 0.9;
+                    speedY *= 0.9;
+                    newTop = 0;
+
+                }
+                if (newLeft < 0){
+                    speedX *= -1;
+                    speedX *= 0.9;
+                    speedY *= 0.9;
+                    newLeft = 0;
+                }
+                /*当speedX小于1且speedY小于g且物体到底边时，同时三者均满足则clearInterval(obj.timer)*/
+                if (Math.abs(speedX) < 1 && Math.abs(speedY) < g && newTop === document.documentElement.clientHeight - obj.offsetHeight){
+                    clearInterval(obj.timer);
+                    console.log('over');
+                }
+                obj.style.top = newTop + 'px';
+                obj.style.left = newLeft + 'px';
+
+            },30)
+        }
+    </script>
+</body>
+</html>

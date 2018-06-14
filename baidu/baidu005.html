@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .box{
+            background: #ff0000;
+            width: 20px;
+            display: inline-block;
+            margin-right: 8px;
+
+        }
+        .bon{
+            border:1px solid #eeeeee;
+        }
+        .bon:hover{
+            background: #ff5555;
+        }
+        #sort{
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <form>
+        <label>请输入<input type="text" id="textIn" name="inputText"></label>
+        <button class="bon" id="leftin" type="button">左侧入</button>
+        <button class="bon" id="rightin" type="button">右侧入</button>&nbsp;&nbsp;
+        <button class="bon" id="leftout" type="button">左侧出</button>
+        <button class="bon" id="rightout" type="button">右侧出</button><br />
+        <button class="bon" id="sort" type="button">排序</button>
+    </form>
+</div>
+<script type="text/javascript">
+    var num = 0;
+
+    function addBox (addvalue) {
+        var leftInValue = document.getElementById('textIn').value;
+        if (leftInValue === '' && isNaN(leftInValue)){
+            alert('该处不能为空且该处不能为非数字，请更正为正确的数字。');
+        }else if (num >= 60){
+            alert ('页面元素等于60个了');
+        }else if(leftInValue > 100 || leftInValue < 10){
+            alert ('请输入大于等于10，小于等于100的数字');
+        }else{
+            var box1 = document.createElement('p');
+            box1.style.height = leftInValue + 'px';
+            var main = document.getElementById('main');
+            box1.setAttribute('class','box');
+            if (addvalue === 'left'){
+                if (main.children.length < 2){
+                    main.appendChild(box1);
+                    num++;
+                }else {
+                    main.insertBefore(box1,main.getElementsByTagName('p')[0]);
+                    num++;
+                }
+            }else{
+                main.appendChild(box1);
+                num++;
+            }
+        }
+        clickBox();
+    }
+    function minusBox(minusvalue) {
+        if(document.getElementsByTagName('p').length > 0){
+            if(minusvalue === 'left'){
+                var firstelement = document.getElementsByTagName('p')[0];
+                var leftoutvalue = document.getElementById('main').removeChild(firstelement);
+                var outmessage = '弹出字符块为：' + parseInt(leftoutvalue.style.height);
+                num--;
+                alert(outmessage);
+            }else{
+                var number = document.getElementsByTagName('p').length-1;
+                var lastelement = document.getElementsByTagName('p')[number];
+                var rightoutvalue = document.getElementById('main').removeChild(lastelement);
+                var outmessage1 = '弹出字符块为：' + parseInt(rightoutvalue.style.height);
+                num--;
+                alert(outmessage1);
+            }
+        }else{
+            alert('当前页面没有字符块');
+        }
+        clickBox();
+    }
+    function clickBox () {
+        var elementsbox = document.getElementsByTagName('p');
+        for(var i = 0;i<elementsbox.length;i++) {
+            elementsbox[i].onclick = function () {
+                var outvalue = document.getElementById('main').removeChild(this);
+                var outmessage = '弹出字符块为：' + parseInt(outvalue.style.height);
+                alert(outmessage);
+                num--;
+            }
+        }
+    }
+    var leftIn = document.getElementById('leftin');
+    var rightIn = document.getElementById('rightin');
+    var leftOut = document.getElementById('leftout');
+    var rightOut = document.getElementById('rightout');
+    leftIn.onclick = function () {
+        addBox('left');
+    };
+    rightIn.onclick = function () {
+        addBox('right');
+    };
+    leftOut.onclick = function () {
+        minusBox('left');
+    };
+    rightOut.onclick = function () {
+        minusBox('right');
+    };
+    function againSort() {
+        var elementsbox = document.getElementsByTagName('p');
+        if(elementsbox.length < 2){
+            alert('页面中元素块小于2个，请增加元素块后进行排序')
+            return;
+        }
+        var arr = [],
+            j,
+            t,
+            p;
+        for(var i = 0;i < elementsbox.length;i++){
+            arr[i] = parseInt(elementsbox[i].style.height);
+        }
+        for(j = 0;j < arr.length-1;j++){
+            for(t = 0;t < arr.length-j;t++){
+                if(arr[t] > arr[t+1]){
+                    p = arr[t];
+                    arr[t] = arr[t+1];
+                    arr[t+1] = p;
+                }
+            }
+        }
+        var length = elementsbox.length;
+        var parentnode = elementsbox[0].parentNode;
+        for(var a = 0;a < length;a++){
+
+            parentnode.removeChild(elementsbox[0]);
+        }
+        console.log(arr);
+        for(var u = 0;u < arr.length;u++){
+            var box2 = document.createElement('p');
+            box2.style.height = arr[u] + 'px';
+            box2.setAttribute('class','box');
+            parentnode.appendChild(box2);
+        }
+        clickBox();
+    }
+    var sort = document.getElementById('sort');
+    sort.onclick = function () {
+        againSort()
+    }
+</script>
+
+</body>
+</html>

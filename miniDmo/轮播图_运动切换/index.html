@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        div.wrapper{
+            width: 640px;
+            height: 360px;
+            margin: 100px auto 0;
+            /*border: 1px solid black;*/
+            overflow: hidden;
+            position: relative;
+
+        }
+        ul.slideImg {
+            position: absolute;
+            left: 0;
+                top: 0;
+            width: 4480px;
+            height: 360px;
+        }
+        .slideImg li{
+            float: left;
+        }
+        li img {
+            width: 640px;
+        }
+        .btn{
+            height: 60px;
+            width: 30px;
+            background: gray;
+            opacity: 0.35;
+            position: absolute;
+            top: 50%;
+            text-align: center;
+            font-size: 30px;
+            line-height: 60px;
+            margin-top: -30px;
+            cursor: pointer;
+
+        }
+        div.wrapper:hover .btn{
+            opacity: 0.7;
+        }
+        .btn-left{
+            left: 0;
+        }
+        .btn-right{
+            right: 0;
+        }
+        .sliderIndex{
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+        .sliderIndex span{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 1px solid #5e5e5e;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .active{
+            background: #ededec;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+            <ul class="slideImg">
+                <li><img src="./img/demo-1.jpg" alt=""></li>
+                <li><img src="./img/demo-2.jpg" alt=""></li>
+                <li><img src="./img/demo-3.png" alt=""></li>
+                <li><img src="./img/demo-4.png" alt=""></li>
+                <li><img src="./img/demo-5.png" alt=""></li>
+                <li><img src="./img/demo-6.png" alt=""></li>
+                <li><img src="./img/demo-1.jpg" alt=""></li>
+            </ul>
+        <div class="btn btn-left">&lt;</div>
+        <div class="btn btn-right">&gt;</div>
+        <div class="sliderIndex">
+            <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <script>
+        var timer;
+        var slideImg = document.getElementsByClassName('slideImg')[0];
+        var num = slideImg.children.length - 1;
+        var ImgWidth = slideImg.children[0].offsetWidth;
+        var btnLeft = document.getElementsByClassName('btn-left')[0],
+            btnRight = document.getElementsByClassName('btn-right')[0];
+        var slideItem = document.getElementsByClassName('sliderIndex')[0].getElementsByTagName('span');
+        var index = 0;
+        var lock = true;
+        /*为左右btn绑定click事件以为automove函数传入相应的参数*/
+        btnLeft.addEventListener('click',function (evt) {
+            autoMove('left-move');
+        });
+        btnRight.addEventListener('click',function (evt) {
+            autoMove('right-move');
+        });
+        /*为每个索引标签绑定click事件，输出对应的index索引值*/
+        for (var i = 0;i < slideItem.length;i++){
+            (function (myIndex) {
+                slideItem[i].onclick =function () {
+                    clearTimeout(timer);
+                    lock = false;
+                    index = myIndex;
+                    changIndex(index);
+                    startMove(slideImg,{left: -index * ImgWidth},function () {
+                        timer = setTimeout(autoMove,2000);
+                        lock = true;
+                    })
+              }
+            }(i))
+        }
+        /*当轮播图索引改变时，将索引值传入该函数，以改变页面索引小圆点*/
+        function changIndex(index) {
+            for (var i= 0;i < slideItem.length;i++){
+                slideItem[i].classList.remove('active');
+            }
+            slideItem[index].classList.add('active');
+        }
+        /*启动函数，判断direction值，以启动startmove运动函数*/
+        function autoMove(direction) {
+            clearTimeout(timer);
+            if (lock) {
+                lock = false;
+                /*判断传入的direction是否为undefined或‘right-move'，
+                * 并判定ul的offsetLeft是否等于显示图片数量num乘以图片width的值*/
+                if (!direction ||direction === 'right-move'){
+                    index++;
+                    if (slideImg.offsetLeft === - num * ImgWidth) {
+                        slideImg.style.left = 0 + 'px';
+                    }
+                    if (index === 6){/*判断当前索引值是否到了最后一个图片，如果为最后一个图片则索引值置0*/
+                        index = 0
+                    }
+                    changIndex(index);
+                    startMove(slideImg,{left : slideImg.offsetLeft - ImgWidth},function () {
+                        timer = setTimeout(autoMove,2000);
+                        lock = true;
+                    });
+
+                } else {
+                    /*判定传入的direction是否为left-move，
+                    *  并判定ul的offsetLeft是否等于0px位置*/
+                    if (slideImg.offsetLeft === 0){
+                        slideImg.style.left = -num * ImgWidth + 'px';
+                        index = 6
+                    }
+                    index--;
+                    changIndex(index);
+                    startMove(slideImg,{left:slideImg.offsetLeft + ImgWidth},function () {
+                        timer = setTimeout(autoMove,2000);
+                        lock = true;
+                    })
+                }
+            }
+
+        }
+        timer = setTimeout(autoMove,2000);
+
+        /*获取DOM元素属性，返回结果为字符串，需要parsefloat/parseInt转为number*/
+        function getComputeAttr(obj,attr) {
+            if (obj.currentStyle){
+                return obj.currentStyle[attr];
+            } else {
+                return window.getComputedStyle(obj,null)[attr];
+            }
+        }
+
+        /*多值，链式缓冲运动函数，做缓冲运动，
+        * 参数objTarget为object类型，该值为运动函数对应的运动目标，
+        * obj为运动元素，callback为运动结束后继续执行的函数*/
+        function startMove(obj,objTarget,callBack) {
+            clearInterval(obj.timer);
+            var cur, speed;
+            obj.timer = setInterval(function () {
+                var iStop = true;
+                for (var attr in objTarget) {/*循环所有attr属性*/
+                    cur = parseFloat(getComputeAttr(obj, attr));
+                    /*算出不断的缩小的应该变化值，即（目标值-当前值）/缩小倍数*/
+                    var curTemp = (objTarget[attr] - cur) / 8;
+                    if (attr === 'opacity') {
+                        /*对循环attr的属性为opacity时，对处理后的curTemp放大，
+                        * 然后向上或向下取整，再缩小，然后传入obj.style[attr]*/
+                        speed = curTemp * 700;
+                    } else {
+                        speed = curTemp;
+                    }
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+                    if (attr === 'opacity') {
+                        obj.style[attr] = cur + speed / 700;
+                    } else {
+                        obj.style[attr] = cur + speed + 'px';
+                    }
+                    /*判定所有的attr属性值是否都到达目标点，
+                    * 当所有都到达目标点时均不执行if语句内容，即所有的判定均为false*/
+                    if (!(Math.abs(objTarget[attr] - parseFloat(getComputeAttr(obj, attr))) < 1)) {
+                        iStop = false;
+                    }
+                }
+                if (iStop) {
+                    clearInterval(obj.timer);
+                    typeof callBack === 'function' ? callBack() : '';
+                }
+            }, 35)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #75b86b;
+            border-radius: 20px;
+            margin: 150px auto 0;
+            overflow: hidden;
+        }
+        .wrapper>div:first-child{
+            width: 246px;
+            height: 80px;
+            margin: 20px auto;
+        }
+        .wrapper .btn span{
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ff5555;
+            line-height: 80px;
+            text-align: center;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        .btn~div{/*.btn后边所有同一父级的div元素，div元素不需要紧邻.btn*/
+            color: #75b86b;
+            font-size: 80px;
+            width: 500px;
+            height: 380px;
+            text-align: center;
+            line-height: 400px;
+            background: #c7f7ba;
+            border-radius: 20px;
+        }
+        .wrapper .btn .active{
+            background: #ff4400;
+            color: #FFFFFF;
+        }
+    </style>
+    <script src="../jquery-3.3.1.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="btn">
+            <span class="active">1</span><span>2</span><span>3</span>
+        </div>
+        <div class="content">11</div>
+        <div class="content">22</div>
+        <div class="content">33</div>
+        <script>
+            $('.btn>span').click(function (index) {
+                $('.btn>span').removeClass();
+                $(this).attr('class','active');
+                $('.content').css('display','none');
+                $($('.content')[$(this).index()]).css('display','block')
+            })
+        </script>
+    </div>
+</body>
+</html>
