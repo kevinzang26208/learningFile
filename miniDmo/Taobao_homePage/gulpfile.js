@@ -20,8 +20,8 @@ var folder = {
 
 gulp.task('html',function () {
 	var oSrc = gulp.src(folder.src + 'html/*')
-		.pipe(connect.reload())
-		.pipe(newer(folder.src + 'html/'));
+		.pipe(connect.reload());
+		// .pipe(newer(folder.src + 'html/'));
 	if (!devMode){
 		oSrc.pipe(htmlClean());
 	}
@@ -46,8 +46,8 @@ gulp.task('image',function () {
 });
 gulp.task('watch',function () {
 	gulp.watch(folder.src + 'html/*',['html']);
-	gulp.watch(folder.src + 'html/*',['css']);
-	gulp.watch(folder.src + 'js/*',['js']);
+	gulp.watch(folder.src + 'css/*',['css']);
+	// gulp.watch(folder.src + 'js/*',['js']);
 	gulp.watch(folder.src + 'images/*',['image'])
 });
 gulp.task('server',function () {
@@ -56,6 +56,6 @@ gulp.task('server',function () {
 		livereload:true
 	})
 });
-gulp.task('default',['html','css','image','watch','server']);
+gulp.task('default',['html','css','image','watch'/*,'server'*/]);
 
 /* $ exprot NODE_ENV=development*/
