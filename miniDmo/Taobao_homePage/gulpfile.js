@@ -40,7 +40,7 @@ gulp.task('css',function () {
 });
 gulp.task('image',function () {
 	gulp.src(folder.src + 'images/*')
-		.pipe(newer(folder.src + 'images/'))
+		// .pipe(newer(folder.src + 'images/'))
 		.pipe(imageMin())
 		.pipe(gulp.dest(folder.dist + 'images/'));
 });
