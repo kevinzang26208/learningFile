@@ -1,3 +1,5 @@
+@cirWidth:520px;
+
 *{
   padding: 0;
   margin: 0;
@@ -10,6 +12,7 @@ html,body{
 
 .wrapper{
   width: 100%;
+  /*顶部导航栏*/
   .nav-top{
     width: 100%;
     height: 35px;
@@ -34,7 +37,7 @@ html,body{
         background: url("../images/xsj.png") no-repeat 50% 15%;
         margin-left: 10px;
       }
-      /*头部nav的左侧div*/
+      /*导航栏左部操作区，用户账户操作等*/
       .nav-top-left{
         float: left;
         li{
@@ -60,7 +63,7 @@ html,body{
           color: #F40;
         }
       }
-      /*头部nav的右侧div*/
+      /*导航栏右部操作区，用户宝贝操作等*/
       .nav-top-right{
         float: right;
         li {
@@ -111,6 +114,7 @@ html,body{
     }
   }
 
+  /*宝贝搜索区*/
   .head-search-box{
     width: 100%;
     height: 140px;
@@ -123,7 +127,7 @@ html,body{
       padding-top: 40px;
       margin: 0 auto;
       position: relative;
-
+      /*web的logo*/
       .web-logo{
         width: 190px;
         height: 140px;
@@ -133,6 +137,7 @@ html,body{
 
         }
       }
+      /*搜索区内搜索框*/
       .search-box-middle{
         width: 630px;
         height: 100px;
@@ -140,7 +145,6 @@ html,body{
         //border: 1px solid #0f0f0f;
         font-size: 12px;
         text-align: center;
-
         a{
           color: #666;
 
@@ -229,6 +233,7 @@ html,body{
             }
           }
         }
+        /*辅助搜索框导航条*/
         .search-host-line{
           height: 20px;
           padding-top: 10px;
@@ -264,6 +269,7 @@ html,body{
           }
         }
       }
+      /*手淘二维码*/
       .search-box-qr{
         width: 76px;
         height: 90px;
@@ -297,6 +303,7 @@ html,body{
     }
   }
 
+  /*页面主体核心区*/
   .main-wrapper{
     .main-nav-wrapper{
       height: 30px;
@@ -321,6 +328,7 @@ html,body{
             font-size: 16px;
           }
         }
+        /*导航栏主体*/
         .main-nav-content{
           display: inline-block;
           font-size: 15px;
@@ -369,16 +377,20 @@ html,body{
       }
     }
 
+    /*核心区主体*/
     .main-content-wrapper{
       .main-content{
         width: 1190px;
         height: 632px;
         margin: 0 auto;
+        /*核心区左部，商品推广区*/
         .main-inner{
           width: 900px;
           float: left;
+          /*商品推广位*/
           .main-inner-top{
             height: 522px;
+            /*商品分类*/
             .main-service{
               box-sizing: border-box;
               width: 190px;
@@ -416,6 +428,7 @@ html,body{
                 }
               }
             }
+            /*商品推广轮播*/
             .main-core{
               width: 520px;
               height: 512px;
@@ -427,6 +440,28 @@ html,body{
                 height: 280px;
                 background: url("../images/pic2.jpg");
                 //overflow: hidden;
+                .big-cir-promo-wrapper{
+                  height: 100%;
+                  position: relative;
+                  .cro-roll-wrapper{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: @cirWidth*6;
+                    height: 100%;
+
+                    li{
+                      float: left;
+                    }
+                    &::after{
+                      content: '';
+                      display: block;
+                      clear: both;
+                    }
+                  }
+                }
+
+
               }
               .core-small-cir-promo{
                 height: 230px;
@@ -458,6 +493,7 @@ html,body{
                 }
               }
             }
+            /*推广侧边栏*/
             .sub-column{
               width: 160px;
               height: 512px;
@@ -484,6 +520,7 @@ html,body{
               }
             }
           }
+          /*商品推广头条*/
           .main-headline{
             //width: 890px;
             height: 100px;
@@ -566,16 +603,18 @@ html,body{
             }
           }
         }
+        /*核心区右部，账户，公告，生活服务入口*/
         .col-right{
           width: 290px;
           height: 622px;
           float: right;
           margin-top: 10px;
-          //background: #FFFFFF;
+          /*账户，公告*/
           .main-right-top{
             background: #FFFFFF;
             height: 280px;
             margin-bottom: 1px;
+            /*账户操作*/
             .tb-member{
               height: 132px;
               padding: 3px 0 10px 0;
@@ -656,6 +695,7 @@ html,body{
                 }
               }
             }
+            /*举报*/
             .report-gov{
               height: 26px;
               a{
@@ -675,10 +715,10 @@ html,body{
                 }
               }
             }
+            /*公告，通知*/
             .tb-notice{
               height: 98px;
               padding-top: 10px;
-
               .tb-notice-hd{
                 ul{
                   height: 24px;
@@ -725,7 +765,9 @@ html,body{
               }
             }
           }
+          /*生活服务，app下载*/
           .main-right-server-app{
+            /*生活服务*/
             .server-entrance{
               height: 230px;
               ul{
@@ -801,6 +843,7 @@ html,body{
                 }
               }
             }
+            /*app下载*/
             .tb-app-link{
               height: 110px;
               margin-top: 1px;
