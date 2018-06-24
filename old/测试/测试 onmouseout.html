@@ -30,12 +30,10 @@
 		<li></li>
 	</ul>
 	<script>
-		function a() {
-			this.aaa = 123;
-			this.bbb = 234;
-		}
-		var cc = new a();
-		console.log(cc);
+		var arr = [0,1,2,3,4,5]
+		arr.forEach(function () {
+			console.log(this)
+		})
 	</script>
 </body>
 </html>

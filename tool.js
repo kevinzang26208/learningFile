@@ -256,6 +256,14 @@ Function.prototype.myCall = function () {
     delete obj.fn;
     return result;
 };
+/*ES6*/
+Function.prototype.myCallEs6 = function () {
+	var obj = arguments[0] || window;
+	obj.fn = this;
+	var arr = [...arguments];
+	arr = arr.slice(1);
+	return obj.fn(...arr)
+};
 /*apply仿源码*/
 Function.prototype.myApply = function () {
     var obj = arguments[0];

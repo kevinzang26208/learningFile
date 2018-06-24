@@ -439,7 +439,8 @@ html,body{
                 width: 520px;
                 height: 280px;
                 background: url("../images/pic2.jpg");
-                //overflow: hidden;
+                overflow: hidden;
+                //cursor: pointer;
                 .big-cir-promo-wrapper{
                   height: 100%;
                   position: relative;
@@ -457,6 +458,76 @@ html,body{
                       content: '';
                       display: block;
                       clear: both;
+                    }
+                  }
+                  /*左右btn*/
+                  div{
+                    display: none;
+                    .big-cir-left-btn{
+                      position: absolute;
+                      left: 0;
+                      top: 50%;
+                      transform: translateY(-50%) rotateZ(180deg);
+                      width: 20px;
+                      height: 30px;
+                      border: none;
+                      border-top-left-radius:15px;
+                      border-bottom-left-radius:15px;
+                      background: rgba(0,0,0,.3) url("../images/yjt.png") no-repeat 65% center;
+                      z-index: 10;
+                      cursor: pointer;
+                      outline: none;
+                      &:hover{
+                        background-color: rgba(0,0,0,0.4)
+                      }
+                    }
+                    .big-cir-right-btn{
+                      position: absolute;
+                      right: 0;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      width: 20px;
+                      height: 30px;
+                      border: none;
+                      border-top-left-radius:15px;
+                      border-bottom-left-radius:15px;
+                      background: rgba(0,0,0,.3) url("../images/yjt.png") no-repeat 65% center;
+                      z-index: 10;
+                      cursor: pointer;
+                      outline: none;
+                      &:hover{
+                        background-color: rgba(0,0,0,0.4)
+                      }
+                    }
+                  }
+                  .big-cir-index{
+                    position: absolute;
+                    bottom: 26px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 70px;
+                    height: 14px;
+                    border-radius: 10px;
+                    background-color: rgba(255,255,255,.3);
+                    text-align: center;
+                    font-size: 0;
+                    li{
+                      display: inline-block;
+                      width: 8px;
+                      height: 8px;
+                      margin: 3px;
+                      border-radius: 50%;
+                      background-color: #FFFFFF;
+                      cursor: pointer;
+                      &.big-cir-index-active{
+                        background-color: #ff4400;
+                      }
+                    }
+                  }
+
+                  &:hover{
+                    div{
+                      display: block;
                     }
                   }
                 }
