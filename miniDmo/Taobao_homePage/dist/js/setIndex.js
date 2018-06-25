@@ -1,3 +1,4 @@
+/*构造新对象，原型上绑定方法，计算当前索引位*/
 define(function () {
 	var $slideWra = $('.cro-roll-wrapper'),
 	len = $slideWra.children().length - 1;

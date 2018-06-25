@@ -1,10 +1,11 @@
+/*主入口模块*/
 var bigCir = {};
-
 bigCir.flag = true;
 
 require(['bigCir'],function (oData) {
 	var $indexWra = $('.big-cir-index');
 
+	/*绑定事件*/
 	$('.big-cir-left-btn').on('click',function () {
 		oData.slideMove('left-move');
 	});
