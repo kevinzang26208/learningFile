@@ -119,7 +119,6 @@ html,body{
     width: 100%;
     height: 140px;
     background: #FFFFFF;
-    //border-bottom: 1px solid #cccccc;
     .search-content{
       box-sizing: border-box;
       width: 1190px;
@@ -142,7 +141,6 @@ html,body{
         width: 630px;
         height: 100px;
         margin: 0 auto;
-        //border: 1px solid #0f0f0f;
         font-size: 12px;
         text-align: center;
         a{
@@ -272,15 +270,19 @@ html,body{
       /*手淘二维码*/
       .search-box-qr{
         width: 76px;
-        height: 90px;
+        height: 86px;
         position: absolute;
         top: 40px;
         right: 110px;
+        border: 1px solid #eeeeee;
         text-align: center;
         a{
           display: block;
-          border: 1px solid #eeeeee;
           color: #ff5000;
+          h5{
+            line-height: 20px;
+            font-weight: 400;
+          }
           img{
             display: block;
             width: 62px;
@@ -307,12 +309,11 @@ html,body{
   .main-wrapper{
     .main-nav-wrapper{
       height: 30px;
+      background: linear-gradient(to right,#ff9000 0,#ff5000 100%);
       .main-nav{
         width: 1190px;
         height: 100%;
         margin: 0 auto;
-        border-bottom: 1px solid #0f0f0f;
-        background: linear-gradient(to right,#ff9000 0,#ff5000 100%);
         .main-title{
           display: inline-block;
           width: 190px;
@@ -561,6 +562,18 @@ html,body{
                   box-sizing: border-box;
                   border: 1px solid #2aabd2;
                   height: 200px;
+                  ul{
+                    height: 100%;
+                    width: 100%;
+                    li{
+                      height: 100%;
+                      width: 100%;
+                      img{
+                        width: 100%;
+                        height: 100%;
+                      }
+                    }
+                  }
                 }
               }
             }

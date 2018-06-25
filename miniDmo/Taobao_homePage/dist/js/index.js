@@ -1,6 +1,6 @@
-var bigCir = {}
+var bigCir = {};
 
-bigCir.flag = true
+bigCir.flag = true;
 
 require(['bigCir'],function (oData) {
 	var $indexWra = $('.big-cir-index');
@@ -10,11 +10,10 @@ require(['bigCir'],function (oData) {
 	});
 	$('.big-cir-right-btn').on('click',function () {
 		oData.slideMove('right-move');
-		console.log(1)
 	});
 	$indexWra.on("click",function (e) {
 		var index = $(this).children().index(e.target);
 		oData.slideMove(index);
 	});
-	window.bigCir.timer = setTimeout(slideMove,2500);
+	window.bigCir.timer = setTimeout(oData.slideMove,2500);
 });
