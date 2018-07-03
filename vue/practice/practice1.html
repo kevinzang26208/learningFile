@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<style>
+		/*div{*/
+			/*font-size: 0;*/
+		/*}*/
+	</style>
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="(item, index) in formatArr">{{ item }}</li>
+		</ul>
+		<button v-on:click="addMovie">add</button>
+	</div>
+
+    <script>
+    new Vue({
+	    el : '#app',
+	    data : {
+	    	movies : [
+				{
+					name : '捉妖记',
+					year : 2018
+				},
+				{
+					name : '星球大战',
+					year : 2017
+				},
+				{
+					name : '唐人街探案',
+					year : 2016
+				}
+			]
+	    },
+	    methods : {
+	        addMovie : function () {
+				this.movies.push({
+					name : '超时空同居',
+					year : '2018'
+				})
+			}
+	    },
+		computed : {
+			formatArr : function () {
+				return this.movies.map(element => {
+					return element.name + ' (' + element.year + ')';
+				});
+				
+			}
+		}
+    })
+    </script>
+</body>
+</html>

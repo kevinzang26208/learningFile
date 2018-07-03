@@ -1,0 +1,111 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+.wrapper{
+
+}
+.wrapper .title{
+    height: 120px;
+    font-size: 75px;
+    font-weight: 700;
+    line-height: 120px;
+    text-align: center;
+
+}
+.wrapper .game-body{
+    max-width: 1300px;
+    margin: 0 auto;
+    border: 1px solid #0f0f0f;
+    height: 750px;
+    background-color: rgba(255,255,187,1);
+}
+.wrapper .menu{
+    height: 65px;
+    padding: 0 100px;
+    border-bottom: 1px solid #0f0f0f;
+    text-align: center;
+    font-size: 40px;
+    user-select: none;/*禁止用户选中*/
+}
+.menu ul{
+    float: left;
+    height: 65px;
+
+}
+.menu li{
+    float: left;
+    width: 150px;
+    height: 100%;
+    border-right: 1px solid #0f0f0f;
+    line-height: 65px;
+    cursor: pointer;
+}
+.menu li:first-of-type{
+    border-left: 1px solid #0f0f0f;
+    cursor: auto;
+    background-color: #D1EEEE;
+}
+.menu li.active{
+    background-color: #FFA500;
+}
+.menu li.active:hover{
+    background-color: #FFA500;
+    box-shadow: none;
+}
+.game-body .restart{
+    float: right;
+    width: 200px;
+    height: 100%;
+    border-left: 1px solid #0f0f0f;
+    border-right: 1px solid #0f0f0f;
+    line-height: 65px;
+    cursor: pointer;
+}
+.game-body .btn:hover{
+    box-shadow: 0 2px 4px 0 #CFCFCF;
+    background-color: #F0FFFF;
+}
+.game-body .btn:active{
+    box-shadow: none;
+    background-color: rgba(255,255,187,1);
+}
+.game-body .score{
+    float: left;
+    width: 200px;
+    height: 100%;
+    border-right: 1px solid #0f0f0f;
+    line-height: 65px;
+    /*font-size: 35px;*/
+    color: 		#458B00;
+}
+.game-body .score span{
+    margin-left: 10px;
+    color: #F44336;
+}
+.wrapper .game-core ul{
+    width: 1015px;
+    height: 580px;
+    background-color: #FFFFFF;
+    margin: 60px auto;
+    overflow: hidden;
+}
+.wrapper .game-core ul li{
+    float: left;
+    width: 29px;
+    height: 29px;
+    box-sizing: border-box;
+    border: 1px solid #FFEFD5;
+}
+.wrapper .game-core ul li.snake{
+    background-color: #5bc0de;
+}
+
+.wrapper .game-core ul li.food{
+    background-color: #F44336;
+}
+.wrapper .game-core ul li.head{
+    background-color: #668B8B;
+}

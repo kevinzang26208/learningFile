@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+	<script>
+		/*ES5*/
+		function flatten(arr) {
+			var arr = arr || [];
+			var resArr = [];
+			arr.forEach(function (ele) {
+				if (Object.prototype.toString.call(ele) === '[object Array]') {
+					resArr = resArr.concat(flatten(ele));
+				} else {
+					/*递归出口*/
+					resArr.push(ele);
+				}
+			});
+			return resArr;
+		}
+		var a = [1,5,8,6,46,4,['fdsaf'],['rewq'],['fdsafdsaf'],8,89,897,87977,];
+		console.log(flatten(a));
+	</script>
+</body>
+</html>

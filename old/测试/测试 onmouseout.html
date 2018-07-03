@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
+	<meta name="viewport" content="width=device-width">
 	<title>Document</title>
 	<style>
 		*{
@@ -17,23 +19,15 @@
 </head>
 <body>
 	<canvas id="myCanvas" class="item1" width="500" height="500"></canvas>
-	<ul>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
+	<button id = 'a'>摁键</button>
+	<input type="text" id="b">
 	<script>
-		var arr = [0,1,2,3,4,5]
-		arr.forEach(function () {
-			console.log(this)
-		})
+		var a = 'document.body.clientWidth:' + document.body.clientWidth;
+		var b = 'window.innerWidth:' + window.innerWidth;
+		console.log(devicePixelRatio);
+		console.log(a);
+		console.log(b);
+
 	</script>
 </body>
 </html>

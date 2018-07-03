@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		function add (a,b,c,d) {
+			return a + b + c + d;
+		}
+		/*存储函数，存储每一次的输入的参数*/
+		function fixedParamsCurry(fn) {
+			var _arg = [...arguments].slice(1);
+			return function () {
+				var newArg = _arg.concat(...arguments);
+				return fn(...newArg);
+			}
+		}
+		/*执行函数，并递归*/
+		function curry (fn,length) {
+			var length = length || fn.length;
+			return function () {
+				if (arguments.length < length){
+					return curry(fixedParamsCurry(fn,...arguments),length - arguments.length)
+				} else {
+					/*递归出口*/
+					return fn(...arguments)
+				}
+			}
+		}
+		var a = curry(add);
+		var b= a(1)(2)(6,4);
+		console.log(b);
+
+	</script>
+</body>
+</html>

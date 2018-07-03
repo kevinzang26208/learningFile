@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+	}
+	ul{
+		width: 250px;
+		height: 200px;
+		padding: 20px 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		text-align: center;
+		line-height: 30px;
+		/*border: 1px solid #000000;*/
+
+	}
+	ul li{
+		width: 120px;
+		height: 30px;
+		background-color: #2aabd2;
+		border-radius: 8px;
+	}
+	.delete{
+		width: 250px;
+		height: 150px;
+		background-color: #aaaaaa;
+		font-size: 20px;
+		text-align: center;
+		line-height: 150px;
+	}
+</style>
+<body>
+	<ul>
+		<li draggable="true">1</li>
+		<li draggable="true">2</li>
+		<li draggable="true">3</li>
+		<li draggable="true">4</li>
+		<li draggable="true">5</li>
+	</ul>
+	<div class="delete">删除，请拖到这里</div>
+	<script>
+		function liSort() {
+			var oLi = document.getElementsByTagName('li'),
+				oUl = document.getElementsByTagName('ul')[0],
+				oDel = document.getElementsByClassName('delete')[0];
+
+			/*绑定事件*/
+			[...oLi].forEach(function (ele) {
+				ele.addEventListener('dragstart',function (e) {
+					var index = [...oLi].indexOf(this);
+					e.dataTransfer.setData('target',index)
+				},false);
+				ele.addEventListener('dragover',function (e) {
+					e.preventDefault();
+
+				});
+				ele.addEventListener('drop',function (e) {
+					var index = e.dataTransfer.getData('target');
+					oUl.insertBefore(oLi[index],this);
+				});
+			});
+			/*dom元素，删除事件绑定*/
+			oDel.addEventListener('dragover',function (e) {
+				e.preventDefault();
+			});
+			oDel.addEventListener('drop',function (e) {
+				var index = e.dataTransfer.getData('target');
+				oLi[index].remove();
+			},false)
+		}
+
+		liSort();
+	</script>
+</body>
+</html>

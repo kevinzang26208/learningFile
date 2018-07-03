@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div class="demo">
+
+	</div>
+
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+		// ES3
+		function compose () {
+			var arg = Array.prototype.slice.call(arguments);
+			var len = arg.length - 1;
+			return function (x) {
+				var result = arg[len](x);
+				while(len--) {
+					result = arg[len](result);
+				}
+				return result;
+			}
+		}
+		// ES5
+		function composeReduce () {
+			var arg = Array.prototype.slice.call(arguments);
+			return function (x) {
+				result = arg.reduceRight(
+					function (prev,ele,index) {
+						return ele(prev);
+					},x
+				);
+				return result;
+			}
+		}
+		// ES6
+		let composeEs6 =  (...arg) => x => (arg.reduceRight((prev,ele) => ele(prev),x));
+
+		function toUppperCase (str) {
+			return str.toUpperCase()
+		}
+		function split (str) {
+			return str.split('');
+		}
+		function reverse (arr) {
+			return arr.reverse();
+		}
+		function join (arr) {
+			return arr.join('-');
+		}
+		function add (str) {
+			return str + "!";
+		}
+		var f = compose(add,join,reverse,split,toUppperCase);
+		console.log(f);
+    </script>
+</body>
+</html>
