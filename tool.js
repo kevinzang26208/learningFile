@@ -1,6 +1,6 @@
 /*封装的各种方法*/
 
-/*读取CSS样式*/
+/*读取CSS样式,返回一个对象*/
 function getStyle(ele,prop) {
     if (window.getComputedStyle){
         return window.getComputedStyle(ele,null)[prop];//IE8及IE8以下不兼容
@@ -8,7 +8,7 @@ function getStyle(ele,prop) {
         return ele.currentStyle[prop];
     }
 }
-
+ 
 /*封装兼容性方法，求滚动轮滚动距离 getScrollOffset()*/
 function getscrolloffset(){
     if (window.pageXOffset){
@@ -55,7 +55,7 @@ function addEvent(ele, type, handle) {
         ele.addEventListener(type,handle,false/*事件冒泡与捕获的属性，false为冒泡。ture为捕获*/)
     } else if (ele.attachEvent){
         ele.attachEvent('on' + type,function () {
-            handle.call(ele)
+            handle.call(ele)/* 解决ele.attachEvent()的this指向问题 */
         })
     }else{
         ele['on' + type] = handle;

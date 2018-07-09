@@ -12,48 +12,39 @@
 </head>
 <body>
 	<div id="app">
-		<ul>
-			<li v-for="(item, index) in formatArr">{{ item }}</li>
-		</ul>
-		<button v-on:click="addMovie">add</button>
+		<my-com></my-com>
+		<my-com></my-com>
+		<my-com></my-com>
+		<my-com></my-com>
+
 	</div>
 
     <script>
-    new Vue({
-	    el : '#app',
-	    data : {
-	    	movies : [
-				{
-					name : '捉妖记',
-					year : 2018
-				},
-				{
-					name : '星球大战',
-					year : 2017
-				},
-				{
-					name : '唐人街探案',
-					year : 2016
+		Vue.component('my-com',{
+			template : `
+			<div>
+				<button @click="add">{{ val }}</button>
+			</div>
+			`,
+			data : function () {
+				return {
+					name : 'kevin',
+					tel : '111111',
+					val : 1
 				}
-			]
-	    },
-	    methods : {
-	        addMovie : function () {
-				this.movies.push({
-					name : '超时空同居',
-					year : '2018'
-				})
+			},
+			methods : {
+				add : function () {
+					this.val++;
+					console.log(this);
+				}
 			}
-	    },
-		computed : {
-			formatArr : function () {
-				return this.movies.map(element => {
-					return element.name + ' (' + element.year + ')';
-				});
-				
-			}
-		}
-    })
+
+		})
+		new Vue({
+			el : '#app',
+			
+		})
     </script>
 </body>
 </html>

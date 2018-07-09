@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 单例模式 */
+        function Singleton1 (name) {
+            var instance = this;
+            this.name = name;
+            Singleton1 = function () {
+                return instance;
+            }
+        }
+        /*  */
+
+        function Singleton2 (name) {
+            if (typeof Singleton2.instance === 'object') {
+                return Singleton2.instance;
+            }
+            this.name = name;
+            Singleton2.instance = this;
+        }
+        /* 利用了函数的属性作为实例的寄存，单例模式中的Singleton2.instance易被修改*/
+
+        Singleton3 = (function () {
+            var instance;
+            return function (name) {
+                if (typeof instance === 'object') {
+                    return instance;
+                }
+                instance = this;
+                this.name = name;
+            }
+        })();
+        /* 运用了闭包，比较完美，但是抽象的不完全 */
+
+
+    </script>
+</body>
+</html>

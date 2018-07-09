@@ -1,33 +1,61 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<!--<meta name="viewport" content="width=device-width,initial-scale=1">-->
 	<meta name="viewport" content="width=device-width">
 	<title>Document</title>
 	<style>
-		*{
+		* {
 			margin: 0;
 			padding: 0;
 			list-style: none;
 		}
-		.item1{
-			margin: 100px;
-			border: 1px solid #0f0f0f;
+
+		.item1 {
+			height: 100px;
+			background: #ff4400;
+			margin-bottom: 100px;
+			overflow: hidden;
+
+		}
+
+		.item2 {
+			/* width: 100px; */
+			height: 100px;
+			margin-top: 100px;
+			background: green;
+			/* float: right; */
+		}
+
+		.wrapper {
+			overflow: hidden;
+		}
+
+		span:first-of-type {
+			font-size: 200px;
 		}
 	</style>
 </head>
+
 <body>
-	<canvas id="myCanvas" class="item1" width="500" height="500"></canvas>
-	<button id = 'a'>摁键</button>
-	<input type="text" id="b">
+
+	<div class="item1"></div>
+	<div class="wrapper">
+		<div class="item2"></div>
+	</div>
+	<span>ggggg</span>
+	<span>aaa</span>
 	<script>
-		var a = 'document.body.clientWidth:' + document.body.clientWidth;
-		var b = 'window.innerWidth:' + window.innerWidth;
-		console.log(devicePixelRatio);
-		console.log(a);
-		console.log(b);
+		// var a = window.navigator.geolocation.getCurrentPosition(function (pos) {
+		// 	console.log(pos)
+		// },function (e) {
+		// 	console.log(e);
+		// });
+		console.log(true == 2)
 
 	</script>
 </body>
+
 </html>

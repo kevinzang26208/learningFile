@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box1,.box2{
+			float: left;
+			width: 500px;
+			height: 500px;
+			border: 1px solid #0f0f0f;
+		}
+	</style>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="box1"></div>
+		<div class="box2"></div>
+	</div>
+	<script>
+		var barChart = echarts.init(document.querySelector('.box1'));
+		var pieChart = echarts.init(document.querySelector('.box2'));
+		var sortData;
+		function getData(url) {
+			$.ajax({
+				type : 'get',
+				url : url,
+				success : function (data) {
+					sortData = data.sort((a,b) => a.num - b.num);
+					console.log(data);
+					renderBarChart(data,barChart);
+				},
+				error : function () {
+					console.log()
+				}
+			})
+		}
+		getData('./data.json');
+		function renderBarChart(data,chart) {
+			var option = {
+				title : {
+					text : '2016~2018销量',
+					subtext : '**服装有限公司'
+				},
+				tooltip : {
+					trigger : 'axis',
+					axisPointer : {
+						type : 'shadow'
+					}
+				},
+				legend : {
+					data : ['销量']
+				},
+				xAxis : {
+					data : []
+				},
+				yAxis : {},
+				series : [
+					{
+						name : '销量',
+						type : 'bar',
+						data : []
+					}
+				]
+			};
+			data.forEach((ele,index) => {
+				option.xAxis.data[index] = ele.name;
+				option.series[0].data[index] = ele.num;
+			});
+			chart.setOption(option);
+			chart.on('click',function (params) {
+				renderPieChart(params,pieChart)
+			})
+		}
+		function renderPieChart(data,chart) {
+			var option = {
+				title : {
+					text : '每年度具体销量'
+				},
+				tooltip : {
+					trigger : 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend : {
+					data : []
+				},
+				series: [{
+					name : '年度销量',
+					type : 'pie',
+					roseType : 'radius',
+					label: {
+						normal: {
+							textStyle: {
+								color: 'rgba(0, 0, 0, 0.8)'
+							}
+						}
+					},
+					labelLine: {
+						normal: {
+							lineStyle: {
+								color: 'rgba(0, 0, 0, 0.8)'
+							},
+							smooth: 0.2,
+							length: 10,
+							length2: 20
+						}
+					},
+					itemStyle: {
+						normal: {
+							shadowBlur: 100,
+							shadowColor: 'rgba(0, 0, 0, 0.1)'
+						}
+					},
+					data : []
+				}]
+			};
+			var pieData = sortData[data.dataIndex].year;
+			pieData.forEach((ele,index) => {
+				let obj = {};
+				option.legend.data[index] = ele.y;
+				obj.name = ele.y;
+				obj.value = ele.num;
+				option.series[0].data.push(obj);
+			});
+			chart.setOption(option);
+		}
+	</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/*函数防抖 throttle*/
+/*函数防抖*/
 function debounce(fun,time) {
 	var startTime = 0;
 	return function () {
