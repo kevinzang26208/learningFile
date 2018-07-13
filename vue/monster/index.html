@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="wrapper container text-center">
+        <h1 class="title">怪物猎人</h1>
+        <section class="row">
+            <p class="col-lg-6 col-md-6">YOU</p>
+            <p class="col-lg-6 col-md-6">MONSTER</p>
+        </section>
+        <section class="row ">
+            <div class="col-lg-6 col-md-6">
+                <div class=" blood-strip">
+                    <div class="blood" :style="{width:playerBlood + '%'}">
+                        {{ playerBlood }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class=" blood-strip">
+                    <div class="blood" :style="{width:monsterBlood + '%'}">
+                        {{ monsterBlood }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="action">
+            <div class="new-game" v-if="!isRunning">
+                <button class="btn btn-lg btn-primary" @click="isRunning = !isRunning">start new game</button>
+            </div>
+            <div class="fun-act" v-else>
+                <button class="btn btn-lg btn-danger attack" @click="attack">attack</button>
+                <button class="btn btn-lg btn-warning special-attack" @click="specialAttack">special attack</button>
+                <button class="btn btn-lg btn-info heal" @click="heal">heal</button>
+                <button class="btn btn-lg give-up" @click="giveUp">giv up</button>
+            </div>
+        </section>
+        <section class="logs text-center" v-if="logsData.length">
+            <ul>
+                <li v-for="log,index in logsData" :class="{'red':log.bgc,'green':!log.bgc,'heal':log.heal}">{{ log.log }}</li>
+            </ul>
+        </section>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

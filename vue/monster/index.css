@@ -1,0 +1,77 @@
+body,li{
+    padding: 0;
+    margin: 0;
+}
+li{
+    list-style: none;
+}
+
+
+.wrapper{
+    width: 80%;
+    max-width: 1366px;
+    margin: 0 auto;
+    user-select: none;
+}
+.wrapper h1.title{
+    font-size: 70px;
+    color: #008B8B;
+}
+.wrapper section:first-of-type{
+    padding: 50px 0; 
+    font-weight: bold;
+    font-size: 50px;
+}
+.blood-strip{
+    width: 70%;
+    height: 60px;
+    margin: 0 auto;
+    background-color: rgba(156, 156, 156, 0.6);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.blood{
+    width: 80%;
+    height: 100%;
+    background-color:#FF0000;
+    color: #ffffff;
+    font-size: 25px;
+    line-height: 60px;
+    transition: width ease-out 0.4s;
+}
+.action{
+    margin: 50px 40px;
+    padding: 20px 0;
+    border: 2px solid #eeeeee;
+    box-shadow: 1px 1px 5px 1px #9e9b9b;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.fun-act,.new-game{
+    display: inline-block;
+    width: 100%;
+    height: 100%;  
+}
+.action .btn{
+    margin: 0 28px;
+    font-size: 30px;
+    outline: none;
+    text-transform: uppercase;
+}
+.logs{
+    margin: 50px 40px;
+    padding: 20px 0;
+    border: 2px solid #eeeeee;
+    box-shadow: 1px 1px 5px 1px #9e9b9b;
+    font-weight: bold;
+    font-size: 24px;
+}
+.logs li.red{
+    background: rgba(255,48,48,0.3)
+}
+.logs li.green{
+    background: rgba(99,184,255,0.4)
+}
+.logs li.heal{
+    background: rgba(0,205,205,0.7)
+}
