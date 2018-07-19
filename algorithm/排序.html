@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Array.oSort = {
+            init(arr) {
+                for (var i = 0; i < arr.length; i++) {
+                    if (typeof arr[i] !== 'number') {
+                        return false;
+                    }
+                }
+                return true;
+            },
+            compare(m, n) {
+                return m > n ? true : false;
+            },
+            exchange(arr, m, n) {
+                var temp;
+                temp = arr[m];
+                arr[m] = arr[n];
+                arr[n] = temp;
+            },
+            /* 冒泡排序,适用于有基本排序的，改动少的 */
+            bubbleSort(arr) {
+                if (!this.init(arr)) {
+                    return false;
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    for (var j = 0; j < arr.length - i; j++) {
+                        if (this.compare(arr[j], arr[j + 1])) {
+                            this.exchange(arr, j, j + 1);
+                        }
+                    }
+                }
+                return arr;
+            },
+            /* 选择排序，适用于数据量较少的 */
+            selectionSort(arr) {
+                if (!this.init(arr)) {
+                    return false;
+                }
+                var indexMax
+                for (var i = 0; i < arr.length; i++) {
+                    indexMax = 0;
+                    for (var j = 0; j < arr.length - i; j++) {
+                        if (arr[j] > arr[indexMax]) {
+                            indexMax = j;
+                        }
+                    }
+                    this.exchange(arr, indexMax, arr.length - i - 1);
+                }
+                return arr;
+            },
+            /* 快速排序 */
+            quickSort(arr) {
+                if (!this.init(arr)) {
+                    return false;
+                }
+                var key = arr[0],
+                    left = [],
+                    right = [],
+                    middle = [];
+                if (arr.length < 2) {
+                    return arr;
+                }
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] < key) {
+                        left.push(arr[i]);
+                    } else if (arr[i] > key) {
+                        right.push(arr[i]);
+                    } else {
+                        middle.push(arr[i]);/* 必须加相等数组，若相等和大于/小于在一组，则产生末尾递归时递归数组的length永远等于2，而不是1 */
+                    }
+                }
+                return [].concat(this.quickSort(left), middle, this.quickSort(right));
+            },
+            /* 归并排序 */
+            mergeSort(arr) {
+                if (arr.length < 2) {
+                    return arr;
+                }
+                var midNum = Math.floor(arr.length / 2);
+                var left = arr.slice(0, midNum);
+                var right = arr.slice(midNum);
+                return this.merge(this.mergeSort(left), this.mergeSort(right));
+            },
+            merge(left, right) {
+                var result = [];
+                while (left.length && right.length) {
+                    if (left[0] > right[0]) {
+                        result.push(right.shift());
+                    } else {
+                        result.push(left.shift());
+                    }
+                }
+                return result.concat(left, right);
+            }
+
+        }
+        var arr = [1, 5, 2, 98, 11, 6, 67, 145, 23, 76, 26, 38, 83, 45, 85];
+
+        // /* 快速排序 */
+        // function quickSort(arr) {
+        //     var key = arr[0],
+        //         left = [],
+        //         right = [],
+        //         middle = [];
+        //     if (arr.length < 2) {
+        //         return arr;
+        //     }
+        //     for (var i = 0; i < arr.length; i++) {
+        //         if (arr[i] < key) {
+        //             left.push(arr[i]);
+        //         } else if (arr[i] > key) {
+        //             right.push(arr[i]);
+        //         } else {
+        //             middle.push(arr[i]);/* 必须加相等数组，若相等和大于/小于在一组，则产生末尾递归时递归数组的length永远等于2，而不是1 */
+        //         }
+        //     }
+        //     return [].concat(quickSort(left), middle, quickSort(right));
+        // }
+
+        // /* 归并排序 */
+        // function mergeSort(arr) {
+        //     if (arr.length < 2) {
+        //         return arr;
+        //     }
+        //     var midNum = Math.floor(arr.length / 2);
+        //     var left = arr.slice(0, midNum);
+        //     var right = arr.slice(midNum);
+        //     return merge(mergeSort(left), mergeSort(right));
+        // }
+        // function merge(left, right) {
+        //     var result = [];
+        //     while (left.length && right.length) {
+        //         if (left[0] > right[0]) {
+        //             result.push(right.shift());
+        //         } else {
+        //             result.push(left.shift());
+        //         }
+        //     }
+        //     return result.concat(left, right);
+        // }
+
+        /* 冒泡排序,适用于有基本排序的，改动少的 */
+        // function bubbleSort(arr) {
+        //     for (var i = 0; i < arr.length; i++) {
+        //         for (var j = 0; j < arr.length - i; j++) {
+        //             if (arr[j] > arr[j + 1]) {
+        //                 let temp = arr[j + 1];
+        //                 arr[j + 1] = arr[j];
+        //                 arr[j] = temp;
+        //             }
+        //         }
+        //     }
+        //     return arr;
+        // }
+        // console.log(bubbleSort(arr));
+
+        // function selectionSort(arr) {
+        //     var indexMax
+        //     for (var i = 0; i < arr.length; i++) {
+        //         indexMax = 0;
+        //         for (var j = 0; j < arr.length - i; j++) {
+        //             if (arr[j] > arr[indexMax]) {
+        //                 indexMax = j;
+        //             }
+        //         }
+        //         exchange(arr, indexMax, arr.length - i - 1);
+        //     }
+        //     return arr;
+        // }
+        // function exchange(arr, m, n) {
+        //     var temp;
+        //     temp = arr[m];
+        //     arr[m] = arr[n];
+        //     arr[n] = temp;
+        // }
+        // console.log(selectionSort(arr));
+
+    </script>
+</body>
+
+</html>

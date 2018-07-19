@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 创造链表，对象 */
+        function createLinkedList(n) {
+            var root = {},
+            temp = root;
+            for(var i = 0;i < n;i++){
+                temp.data = i;
+                temp.next = {};
+                temp = temp.next;
+            }
+            return root;
+        }
+        var link1 = createLinkedList(4);
+
+        /* 逆向链表，递归原理 */
+        function reverseLinkedList(obj,pre){
+            if(obj.next){
+                var result = reverseLinkedList(obj.next,obj)
+                obj.next = pre;
+                return result;
+            } else {
+                /* 递归出口 */
+                obj.next = pre;
+                return obj
+            }
+        }
+        var a = reverseLinkedList(link1,null);
+        console.log(a);
+        
+    </script>
+</body>
+</html>

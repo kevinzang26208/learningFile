@@ -1,0 +1,143 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+a {
+  color: #999999;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: url('image/bg.png') no-repeat center;
+  background-color: #fef9f0;
+}
+.wrapper {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+}
+.logo {
+  width: 95px;
+  height: 95px;
+  margin: 10px auto 15px;
+}
+.login-box {
+  width: 450px;
+  padding: 50px;
+  border-top: 5px solid #dd3e42;
+  border-radius: 3px;
+  text-align: center;
+  background: #ffffff;
+}
+.login-box h2.login-title {
+  padding-bottom: 20px;
+}
+.login-box h2.login-title span {
+  display: inline-block;
+  padding: 10px 0;
+  border-bottom: 1px solid #dd3e42;
+  font-size: 18px;
+  font-weight: 400;
+  color: #dd3e42;
+}
+.login-box .login-core li {
+  position: relative;
+  padding-bottom: 18px;
+}
+.login-box .login-core #user,
+.login-box .login-core #password {
+  box-sizing: border-box;
+  width: 100%;
+  height: 54px;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+}
+.login-box .login-core .user-img,
+.login-box .login-core .password-img {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.login-box .login-core .tip1,
+.login-box .login-core .tip2 {
+  position: absolute;
+  top: 43px;
+  left: 10px;
+  background-color: #ffffff;
+  font-size: 13px;
+  color: orange;
+}
+.login-box .login-core .login-error {
+  padding-bottom: 18px;
+  text-align: left;
+  overflow: hidden;
+  transition: all ease-out 300ms;
+}
+.login-box .login-core .login-error span {
+  color: #dd3e42;
+}
+.login-box .login-core .login-error.active {
+  height: 0;
+  padding-bottom: 0;
+  transition: all ease-in 300ms;
+}
+.login-box .login-core .login-tab1 {
+  height: 45px;
+}
+.login-box .login-core .login-tab1 .login-register {
+  float: left;
+}
+.login-box .login-core .login-tab1 .login-register button {
+  width: 150px;
+  height: 45px;
+  border: none;
+  background-color: #dd3e42;
+  color: #ffffff;
+  outline: none;
+  cursor: pointer;
+}
+.login-box .login-core .login-tab1 .login-register span {
+  padding-left: 5px;
+  color: #999999;
+}
+.login-box .login-core .login-tab1 .login-register a {
+  color: #dd3e42;
+}
+.login-box .login-core .login-tab1 .lost-pwd {
+  float: right;
+  height: 100%;
+  vertical-align: middle;
+  line-height: 45px;
+}
+.login-box .login-core .login-tab1 .lost-pwd a:hover {
+  color: #dd3e42;
+}
+.login-box .login-core .login-tab1::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.login-box .login-core .login-tab2 {
+  height: 47px;
+  padding-top: 35px;
+}
+.login-box .login-core .login-tab2 .login-weixin,
+.login-box .login-core .login-tab2 .login-alipay {
+  display: inline-block;
+}
+.login-box .login-core .login-tab2 .login-weixin img,
+.login-box .login-core .login-tab2 .login-alipay img,
+.login-box .login-core .login-tab2 .login-weixin span,
+.login-box .login-core .login-tab2 .login-alipay span {
+  vertical-align: middle;
+  /* 解决图片与文字垂直对齐关键点，必须给图片设置vertical-align */
+}
+.login-box .login-core .login-tab2 .login-weixin {
+  margin-right: 50px;
+}

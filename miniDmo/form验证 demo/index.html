@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <section class="logo">
+            <img src="./image/logo2.png" alt="">
+        </section>
+        <section class="login-box">
+            <h2 class="login-title">
+                <span>登陆</span>
+            </h2>
+            <div class="login-core">
+                <ul>
+                    <li>
+                        <input type="text" id="user" placeholder="请输入手机号码">
+                        <label for="user" class="user-img">
+                            <img src="./image/user.png" alt="">
+                        </label>
+                        <label for="user" class="tip1">11位手机号</label>
+                    </li>
+                    <li>
+                        <input type="password" id="password" placeholder="请输入密码">
+                        <label for="password" class="password-img">
+                            <img src="./image/key.png" alt="">
+                        </label>
+                        <label for="password" class="tip2">首位为字母且不小于八位</label>
+                    </li>
+                </ul>
+                <div class="login-error active">
+                    <span>输入错误，请检查手机号和密码格式</span>
+                </div>
+                <div class="login-tab1">
+                    <div class="login-register">
+                        <button id="login-btn">登陆</button>
+                        <span>不是会员？</span>
+                        <a href="javascipt:void(0)">去注册</a>
+                    </div>
+                    <div class="lost-pwd">
+                        <a href="javascipt:void(0)">忘记密码</a>
+                    </div>
+                </div>
+                <div class="login-tab2">
+                    <div class="login-weixin">
+                        <a href="#">
+                            <img src="./image/weixin.png" alt="">
+                            <span>微信登陆</span>
+                        </a>
+                    </div>
+                    <div class="login-alipay">
+                        <a href="#">
+                            <img src="./image/zhifubao.png" alt="">
+                            <span>支付宝登陆</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        var oUser = document.getElementById('user'),
+            oPwd = document.getElementById('password'),
+            oBtn = document.getElementById('login-btn'),
+            oError = document.getElementsByClassName('login-error')[0];
+        var userReg = /^1\d{10}$/,
+            PwdReg = /^[a-zA-Z][a-zA-Z0-9.!@#%^&*-+`/';:|]{7,19}$/
+        var oUserFlge = false;
+        var oPwdFlge = false;
+
+        oUser.onblur = function () {
+            var flge = userReg.test(this.value);
+            if (judgeEmpty()) {
+                oError.classList.add('active');
+            } else {
+                if (flge) {
+                    oUserFlge = true
+                    oError.classList.add('active');
+                } else if (!(this.value === '') && flge === false) {/* 判定在input非空时，并且正则为false时，开始显示错误 */
+                    oError.classList.remove('active');
+                }
+            }
+        }
+        oPwd.onblur = function () {
+            var flge = PwdReg.test(this.value);
+            console.log(flge, this.value);
+            if (judgeEmpty()) {
+                oError.classList.add('active');
+            } else {
+                if (flge) {
+                    oPwdFlge = true;
+                    oError.classList.add('active');
+                } else if (!(this.value === '') && flge === false) {
+                    oError.classList.remove('active');
+                }
+            }
+        }
+
+        oBtn.onclick = function () {
+            if (oUserFlge && oPwdFlge) {
+                console.log('successful');
+            } else if (judgeEmpty()) {
+                oError.classList.remove('active');
+            } else {
+                oError.classList.remove('active');
+            }
+        }
+        function judgeEmpty() {
+            if (oUser.value === '' && oPwd.value === '') {
+                return true;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

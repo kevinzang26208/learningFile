@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <section class="main">
+        <div class="inner">
+            <div class="content">
+                <h2 class="monsterText">We are
+                    <br>SQUARE
+                    <br>MONSTER!
+                </h2>
+                <p>Je t'aime, Lulu</p>
+            </div>
+            <div class="monster-them">
+                <div class="monster pink">
+                    <div class="eye">
+                        <div class="eye-ball"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="monster blue">
+                    <div class="eye">
+                        <div class="eye-ball"></div>
+                    </div>
+                    <div class="mouth"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="loadingPage">
+        <div class="wrapper-monster">
+            <div class="monster pink">
+                <div class="eye">
+                    <div class="eye-ball"></div>
+                </div>
+                <div class="mouth"></div>
+            </div>
+        </div>
+        <div class="loading-slide">
+            <div class="bar" style="width: 0"></div>
+        </div>
+    </section>
+    <script>
+        var warMons = document.getElementsByClassName('wrapper-monster')[0];
+        var oBar = document.getElementsByClassName('bar')[0];
+        var loadingPage = document.getElementsByClassName('loadingPage')[0];
+        var timer = setInterval(function () {
+            var curWidth = parseInt(oBar.style.width);
+            if (curWidth >= 100) {
+                clearInterval(timer);
+                warMons.classList.add('complete');
+            }
+            oBar.style.width = curWidth + 1 + '%';
+        }, 20)
+        warMons.addEventListener('transitionend', function () {
+            loadingPage.style.display = 'none';
+        })
+    </script>
+</body>
+
+</html>

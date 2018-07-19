@@ -99,11 +99,6 @@ function loadScript(url, callback) {
 
 /*事件委托简单事例与封装(结合事件源对象）*/
 
-/*element.onclick = function (e) {
-    var elet = e || window.event;
-    var target = elet.target || elet.srcElement;
-
-}*/
 function eventBubble(e) {
     var elet = e || window.event;
     return elet.target/*火狐独有*/ || elet.srcElement;/*IE独有*//*返回事件源对象*/
