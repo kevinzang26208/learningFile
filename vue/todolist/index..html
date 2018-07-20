@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div id="app" class="comtainer">
+        <form action="" class="row" @submit.prevent>
+            <div class="col-lg-6 form-wra">
+                <div class="form-group">
+                    <label for="inp" class="h1">input item：</label>
+                    <div class="input-group input-group-lg">
+                        <input t ype="text" class="form-control" id="inp" placeholder="请输入project……" v-model="inputVal" @keyup.13="addItem">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" @click="addItem" >提交</button>
+                        </span>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(ele,index) in itemList">
+                        {{ index }} :{{ ele.title }}
+                        <span class="badge"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="badge"><span class="glyphicon glyphicon-ok"></span></span>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                inputVal: '',
+                itemList: [],
+
+            },
+            methods:{
+                addItem(e) {
+                    this.itemList.push({
+                        title: this.inputVal,
+                        isFinish: false
+                    })
+                    
+                }
+            },
+            watch: {
+                inputVal() {
+                    console.log(1);
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
