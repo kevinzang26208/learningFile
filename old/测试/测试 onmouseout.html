@@ -7,49 +7,27 @@
 	<meta name="viewport" content="width=device-width">
 	<title>Document</title>
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			list-style: none;
-		}
-
-		.item1 {
-			height: 100px;
-			background: #ff4400;
-			margin-bottom: 100px;
-			overflow: hidden;
-
-		}
-
-		.item2 {
-			/* width: 100px; */
-			height: 100px;
-			margin-top: 100px;
-			background: green;
-			/* float: right; */
-		}
-
-		.wrapper {
-			overflow: hidden;
-		}
-
-		span:first-of-type {
-			font-size: 200px;
-		}
 	</style>
 </head>
 
 <body>
 
-	<div class="item1"></div>
-	<div class="wrapper">
-		<div class="item2"></div>
-	</div>
-	<span>ggggg</span>
-	<span>aaa</span>
 	<script>
-		var oitem = document.getElementsByClassName('item1');
-		
+		class People {
+			constructor(name, age = 1, sex) {
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+			}
+			feed(count = 1) {
+				this.age += count;
+			}
+
+		}
+		let p = new People;
+		console.log(People.prototype)
+		console.log(p);
+		console.log(typeof People,typeof p);
 	</script>
 </body>
 
