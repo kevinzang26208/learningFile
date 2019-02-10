@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 工厂方法模式
+            function FactoryPlane() {}
+            FactoryPlane.prototype.touch = function() {
+                console.log('die');
+            };
+            FactoryPlane.prototype.create = function(type) {
+                if (!FactoryPlane.prototype[type]) {
+                    throw new Error('出现了错误');
+                }
+                var obj = new FactoryPlane();
+                if (FactoryPlane.prototype[type].prototype.__proto__ !== FactoryPlane.prototype) {
+                    FactoryPlane.prototype[type].prototype = obj;
+                }
+                return new FactoryPlane.prototype[type]();
+            };
+            FactoryPlane.prototype.samllPlane = function() {
+                this.height = 100;
+                this.width = 100;
+                this.attack = 50;
+                this.blood = 500;
+            };
+            FactoryPlane.prototype.smartPlane = function() {
+                this.height = 50;
+                this.width = 50;
+                this.attack = 100;
+                this.blood = 800;
+            };
+            FactoryPlane.prototype.bossPlane = function() {
+                this.height = 150;
+                this.width = 150;
+                this.attack = 300;
+                this.blood = 5000;
+            };
+            var oSmallPlane = FactoryPlane.prototype.create('samllPlane');
+            oSmallPlane.touch();
+            console.log(oSmallPlane);
+            console.log(Object.prototype.toString.call(oSmallPlane));
+        </script>
+    </body>
+</html>
